@@ -35,8 +35,6 @@ class AdminsControllerTest extends TestCase
             $expected,
             $result
         );
-
-        echo $result;
     }
 
     public function testRead()
