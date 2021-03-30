@@ -49,7 +49,7 @@ CREATE TABLE products (
     --  accept or deny from admin
     --  send product price and date
     choosen_by_admin TINYINT NOT NULL,
-    price INT,
+    price VARCHAR(20),
     accepted_date DATE,
 
     -- forth level:
