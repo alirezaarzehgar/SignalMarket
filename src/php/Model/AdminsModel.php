@@ -2,17 +2,10 @@
 
 class AdminsModel
 {
-    public $username;
-    public $password;
-    public $permission;
-
     public function __construct(
-        $username = null,
-        $password = null,
-        $permission = null
+        public $username = null,
+        public $password = null,
+        public $permission = null
     ) {
-        $this->username = $username;
-        $this->password = $password;
-        $this->permission = $permission;
     }
 }
