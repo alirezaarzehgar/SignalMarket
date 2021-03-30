@@ -10,10 +10,11 @@ class ProductsController
 {
     public $table = "products";
 
-    public $admin_name = "admin_name";
-    public $subject = "subject";
-    public $photo_dir_path = "photo_dir_path";
-    public $introduction_to_product = "introduction_to_product";
+    protected $id = "id";
+    protected $admin_name = "admin_name";
+    protected $subject = "subject";
+    protected $photo_dir_path = "photo_dir_path";
+    protected $introduction_to_product = "introduction_to_product";
 
     protected $choosen_by_customer = "choosen_by_customer";
     protected $sent_signal_dir_path = "sent_signal_dir_path";
@@ -125,7 +126,8 @@ class ProductsController
 
             . " {$this->success_payment} = $success_payment,"
 
-            . " {$this->final_product_path} = $final_product_path";
+            . " {$this->final_product_path} = $final_product_path"
+            . " WHERE {$this->id} = {$id}";
 
 
         $result = $this->conn->query($sql);
