@@ -48,12 +48,59 @@ class ProductsControllerTest extends TestCase
         $proc = new ProductsController();
 
 
+        // first level update
         $product = new ProductsModel(
             choosen_by_customer: true,
             sent_signal_dir_path: "/path/signal",
             customer_name: "ali",
             expected_date: "2020-8-12",
             sent_date: "2020-10-20"
+        );
+
+
+        $expected = true;
+        $result = $proc->update($product, 1);
+
+        $this->assertEquals(
+            $expected,
+            $result
+        );
+
+        //  add next level
+        $product = new ProductsModel(
+            choosen_by_admin: true,
+            price: "10$",
+            accepted_date: "2020-10-20"
+        );
+
+
+        $expected = true;
+        $result = $proc->update($product, 1);
+
+        $this->assertEquals(
+            $expected,
+            $result
+        );
+
+
+        // add next level
+        $product = new ProductsModel(
+            success_payment: true
+        );
+
+
+        $expected = true;
+        $result = $proc->update($product, 1);
+
+        $this->assertEquals(
+            $expected,
+            $result
+        );
+
+        // add next level
+
+        $product = new ProductsModel(
+            final_product_path: "/path/fnal-product"
         );
 
 
