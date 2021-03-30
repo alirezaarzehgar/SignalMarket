@@ -58,8 +58,6 @@ class ProductsControllerTest extends TestCase
         $expected = true;
         $result = $proc->update($product, 1);
 
-        echo "prod {$result} \n";
-
         $this->assertEquals(
             $expected,
             $result
