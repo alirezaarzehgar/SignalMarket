@@ -63,4 +63,20 @@ class ProductsControllerTest extends TestCase
             $result
         );
     }
+
+    public function testDelete()
+    {
+        $proc = new ProductsController();
+
+        foreach ($proc->read() as $value)
+            $index = $value['id'];
+
+        $expected = true;
+        $result = $proc->delete($index);
+
+        $this->assertEquals(
+            $expected,
+            $result
+        );
+    }
 }
