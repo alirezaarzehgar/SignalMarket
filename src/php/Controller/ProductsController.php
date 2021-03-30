@@ -136,7 +136,7 @@ class ProductsController
     public function delete($id)
     {
         $sql = "DELETE FROMk {$this->table}"
-            . "WHERE {$this->id} = {$id}";
+            . " WHERE {$this->id} = {$id}";
 
         $result = $this->conn->query($sql);
         return $result ? $result : $this->conn->error;
