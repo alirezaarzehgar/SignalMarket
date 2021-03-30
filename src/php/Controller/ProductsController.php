@@ -132,4 +132,13 @@ class ProductsController
         $result = $this->conn->query($sql);
         return $result ? $result : $this->conn->error;
     }
+
+    public function delete($id)
+    {
+        $sql = "DELETE FROM {$this->table}"
+            . "WHERE {$this->id} = {$id}";
+
+        $result = $this->conn->query($sql);
+        return $result ? $result : $this->conn->error;
+    }
 }
