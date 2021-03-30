@@ -128,7 +128,6 @@ class ProductsController
             . " {$this->final_product_path} = $final_product_path"
             . " WHERE {$this->id} = {$id}";
 
-        echo $sql;
 
         $result = $this->conn->query($sql);
         return $result ? $result : $this->conn->error;
