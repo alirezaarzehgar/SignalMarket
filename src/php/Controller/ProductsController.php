@@ -87,7 +87,7 @@ class ProductsController
         return !$result ? $this->conn->error : $result;
     }
 
-    public function update(ProductsModel $product)
+    public function update(ProductsModel $product, $id)
     {
         $admin_name = isNull($product->admin_name) ? $this->admin_name : "'{$product->admin_name}'";
         $subject = isNull($product->subject) ? $this->subject : "'{$product->subject}'";
