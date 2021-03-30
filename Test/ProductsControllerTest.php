@@ -42,4 +42,27 @@ class ProductsControllerTest extends TestCase
             $result
         );
     }
+
+    public function testUpdate()
+    {
+        $product = new ProductsModel(
+            choosen_by_customer: true,
+            sent_signal_dir_path: "/path/signal",
+            customer_name: "ali",
+            expected_date: "2020-8-12",
+            sent_date: "2020-10-20"
+        );
+
+        $proc = new ProductsController();
+
+        $expected = true;
+        $result = $proc->update($product, 1);
+
+        echo "prod {$result} \n";
+
+        $this->assertEquals(
+            $expected,
+            $result
+        );
+    }
 }
