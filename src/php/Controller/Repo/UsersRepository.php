@@ -37,7 +37,7 @@ class UsersRepository
         return null;
     }
 
-    public function getUserByUsername($username): ?array
+    public function getUserByUsername(string $username): ?array
     {
         foreach ((new UsersController())->read() as $value)
             if ($value['username'] == $username)
@@ -46,7 +46,7 @@ class UsersRepository
         return null;
     }
 
-    public function getUserByEmail($email): ?array
+    public function getUserByEmail(string $email): ?array
     {
         foreach ((new UsersController())->read() as $value)
             if ($value['email'] == $email)
@@ -89,17 +89,23 @@ class UsersRepository
         return $this->userc->delete($id);
     }
 
-    public function deleteUserByUsername($username): ?bool
+    public function deleteUserByUsername(string $username): ?bool
     {
-        #TODO()
+        $id =
+            $this->getUserByUsername(
+                $username
+            )['id'];
 
-        return null;
+        return $this->userc->delete($id);
     }
 
-    public function deleteUserByEmail($email): ?bool
+    public function deleteUserByEmail(string $email): ?bool
     {
-        #TODO
+        $id =
+            $this->getUserByEmail(
+                $email
+            )['id'];
 
-        return null;
+        return $this->userc->delete($id);
     }
 }
