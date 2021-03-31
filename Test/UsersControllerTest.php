@@ -39,14 +39,6 @@ class UsersControllerTest extends TestCase
     {
         $usrc = new UsersController();
 
-        $result = $usrc->error;
-        $expected = "success";
-
-        $this->assertEquals(
-            $expected,
-            $result
-        );
-
         $user = new UsersModel(
             "hosein" . rand(),
             "ali@mamad" . rand(),
@@ -54,7 +46,7 @@ class UsersControllerTest extends TestCase
         );
 
         $result = $usrc->create($user);
-        $expected = "success";
+        $expected = true;
 
         $this->assertEquals(
             $expected,
