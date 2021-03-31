@@ -5,17 +5,17 @@ require_once __DIR__ . '/../AdminsController.php';
 
 class AdminsRepository
 {
+    public AdminsController $adminc;
+
     public function __construct()
     {
-        # TODO()
+        $this->adminc = new AdminsController();
     }
 
     # create section
     public function addNewAdmin(AdminsModel $admin): bool
     {
-        # TODO()
-
-        return true;
+        return $this->adminc->create($admin);
     }
 
 
@@ -23,55 +23,62 @@ class AdminsRepository
 
     public function readAllAdmins(): ?mysqli_result
     {
-        # TODO()
+        return $this->adminc->read();
+    }
+
+    private function getUserByCondition(
+        string $key,
+        string $val
+    ): ?array {
+        foreach ($this->adminc->read() as $value)
+            if ($value[$key] == $val)
+                return $value;
 
         return null;
     }
 
-    public function getAdminById($id): ?mysqli_result
+    public function getAdminById(int|string $id): ?array
     {
-        # TODO()
-
-        return null;
+        return $this->getUserByCondition("id", $id);
     }
 
-    public function getAdminByUsername($username): ?mysqli_result
+    public function getAdminByUsername(string $username): ?array
     {
-        # TODO()
-
-        return null;
+        return $this->getUserByCondition("username", $$username);
     }
 
-    public function getAdminByPermission($permission): ?mysqli_result
+    public function getAdminByPermission(string|int $permission): ?array
     {
-        #TODO()
+        $users = [];
 
-        return null;
+        foreach ($this->adminc->read() as $value)
+            if ($value['permission'] == $permission)
+                array_push($users, $value);
+
+        return $users;
     }
 
     # update section
 
-    public function updateAdmin(AdminsModel $admin): ?bool
-    {
-        #TODO()
-
-        return null;
+    public function updateAdmin(
+        AdminsModel $admin,
+        string|int $id
+    ): ?bool {
+        return $this->adminc->update($admin, $id);
     }
 
 
     # delete section
 
-    public function deleteAdminById($id): ?bool
+    public function deleteAdminById(string|int $id): ?bool
     {
-        # TODO()
-
-        return null;
+        return $this->adminc->delete($id);
     }
 
-    public function deleteAdminByUsername($username): ?bool
+    public function deleteAdminByUsername(string $username): ?bool
     {
-        #TODO()
+        $admin = $this->getAdminByUsername($username);
 
-        return null;
+        return $this->adminc->delete($admin['id']);
     }
 }
