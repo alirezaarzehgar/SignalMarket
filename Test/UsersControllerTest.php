@@ -31,7 +31,7 @@ class UsersControllerTest extends TestCase
 
         //  show all database
         foreach ($usrc->read() as $value) {
-            echo $value['id'] . "\t" . $value['username'] . "\t" . $value['password'] . "\t" . $value['email'] . "\n";
+            # echo $value['id'] . "\t" . $value['username'] . "\t" . $value['password'] . "\t" . $value['email'] . "\n";
         }
     }
 
@@ -73,7 +73,7 @@ class UsersControllerTest extends TestCase
             $this->assertNotEmpty($value['password']);
             $this->assertNotEmpty($value['email']);
 
-            echo $value['id'] . "\t" . $value['username'] . "\t" . $value['password'] . "\t" . $value['email'] . "\n";
+            #echo $value['id'] . "\t" . $value['username'] . "\t" . $value['password'] . "\t" . $value['email'] . "\n";
         }
     }
 
