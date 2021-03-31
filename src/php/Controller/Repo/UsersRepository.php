@@ -7,17 +7,17 @@ require_once __DIR__ . '/../UsersController.php';
 
 class UsersRepository
 {
+    public $userc;
+
     public function __construct()
     {
-        # TODO()
+        $this->userc = new UsersController();
     }
 
     # create section
     public function addNewUser(UsersModel $user): bool
     {
-        # TODO()
-
-        return true;
+        return $this->userc->create($user);
     }
 
 
@@ -25,30 +25,38 @@ class UsersRepository
 
     public function readAllUsers(): ?mysqli_result
     {
-        # TODO()
-
-        return null;
+        return $this->userc->read();
     }
 
     public function getUserById($id): ?mysqli_result
     {
-        # TODO()
+        foreach ($this->userc->read() as $value)
+            if ($value['id'] == $id)
+                return $value;
 
         return null;
     }
 
-    public function getUserByUsername($username): ?mysqli_result
+    public function getUserByUsername($username): ?array
     {
-        # TODO()
+        $users = [];
 
-        return null;
+        foreach ($this->userc->read() as $value)
+            if ($value['username'] == $username)
+                $users[] = $value;
+
+        return $users;
     }
 
-    public function getUserByEmail($email): ?mysqli_result
+    public function getUserByEmail($email): ?array
     {
-        # TODO()
+        $users = [];
 
-        return null;
+        foreach ($this->userc->read() as $value)
+            if ($value['email'] == $email)
+                $users[] = $value;
+
+        return $users;
     }
 
 
