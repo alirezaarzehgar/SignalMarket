@@ -81,7 +81,7 @@ class UsersController
         return $result ? $result : $this->conn->error;
     }
 
-    public function delete($id)
+    public function delete($id): bool
     {
         $sql = "DELETE FROM {$this->table}"
             . " WHERE {$this->id} = '{$id}'";
