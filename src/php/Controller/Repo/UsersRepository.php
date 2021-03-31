@@ -28,7 +28,7 @@ class UsersRepository
         return $this->userc->read();
     }
 
-    public function getUserById($id): ?mysqli_result
+    public function getUserById($id): ?array
     {
         foreach ($this->userc->read() as $value)
             if ($value['id'] == $id)
