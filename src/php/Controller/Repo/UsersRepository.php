@@ -39,24 +39,20 @@ class UsersRepository
 
     public function getUserByUsername($username): ?array
     {
-        $users = [];
-
-        foreach ($this->userc->read() as $value)
+        foreach ((new UsersController())->read() as $value)
             if ($value['username'] == $username)
-                $users[] = $value;
+                return $value;
 
-        return $users;
+        return null;
     }
 
     public function getUserByEmail($email): ?array
     {
-        $users = [];
-
-        foreach ($this->userc->read() as $value)
+        foreach ((new UsersController())->read() as $value)
             if ($value['email'] == $email)
-                $users[] = $value;
+                return $value;
 
-        return $users;
+        return null;
     }
 
     public function getFirstUser(): ?array
