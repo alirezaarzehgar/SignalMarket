@@ -71,14 +71,14 @@ class UsersRepository
         return null;
     }
 
-    public function deleteByUsername($username): ?bool
+    public function deleteUserByUsername($username): ?bool
     {
         #TODO()
 
         return null;
     }
 
-    public function deleteByEmail($email): ?bool
+    public function deleteUserByEmail($email): ?bool
     {
         #TODO
 
