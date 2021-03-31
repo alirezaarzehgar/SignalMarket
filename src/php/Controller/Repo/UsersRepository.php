@@ -28,7 +28,7 @@ class UsersRepository
         return $this->userc->read();
     }
 
-    public function getUserById($id): ?array
+    public function getUserById(int|string $id): ?array
     {
         foreach ($this->userc->read() as $value)
             if ($value['id'] == $id)
@@ -74,17 +74,17 @@ class UsersRepository
 
     # update section
 
-    public function updateUser(UsersModel $user, $id): ?bool
-    {
-        #TODO()
-
-        return null;
+    public function updateUser(
+        UsersModel $user,
+        int|string $id
+    ): bool|string {
+        return $this->userc->update($user, $id);
     }
 
 
     # delete section
 
-    public function deleteUserById($id): ?bool
+    public function deleteUserById(int|string $id): ?bool
     {
         return $this->userc->delete($id);
     }
