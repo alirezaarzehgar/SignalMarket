@@ -54,7 +54,7 @@ class UsersRepository
 
     # update section
 
-    public function updateUser(UsersModel $user): ?bool
+    public function updateUser(UsersModel $user, $id): ?bool
     {
         #TODO()
 
