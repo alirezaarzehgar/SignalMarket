@@ -34,16 +34,32 @@ class UsersRepositoryTest extends TestCase
     {
         $repo = new UsersRepository();
 
-        #TODO
-        $this->assertTrue(true);
+        $expected = (new UsersController())->read();
+        $result = $repo->readAllUsers();
+
+        $this->assertEquals(
+            $expected,
+            $result
+        );
     }
 
     public function testGetUserById()
     {
         $repo = new UsersRepository();
+        $id = 2;
 
-        #TODO
-        $this->assertTrue(true);
+        foreach ((new UsersController())->read() as $value)
+            if ($value['id'] == $id) {
+                $expected = $value;
+                break;
+            }
+
+        $result = $repo->getUserById($id);
+
+        $this->assertEquals(
+            $expected,
+            $result
+        );
     }
 
     public function testGetUserByUsername()
