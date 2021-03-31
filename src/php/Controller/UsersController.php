@@ -65,7 +65,7 @@ class UsersController
         return $result ? $result : $this->conn->error;
     }
 
-    public function update(UsersModel $user, $id)
+    public function update(UsersModel $user, $id): mysqli_result|string
     {
         $username = is_null($user->username) ? $this->username : "'{$user->username}'";
         $email = is_null($user->email) ? $this->email : "'{$user->email}'";
