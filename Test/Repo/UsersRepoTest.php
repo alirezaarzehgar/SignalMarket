@@ -2,7 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/../src/php/Controller/Repo/UsersRepository.php';
+require_once __DIR__ . '/../../src/php/Controller/Repo/UsersRepository.php';
 
 
 class UsersRepositoryTest extends TestCase

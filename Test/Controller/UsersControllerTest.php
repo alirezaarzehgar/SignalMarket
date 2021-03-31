@@ -5,8 +5,8 @@ use SebastianBergmann\Type\TypeName;
 
 use function PHPSTORM_META\type;
 
-require_once __DIR__ . '/../src/php/Model/UsersModel.php';
-require_once __DIR__ . '/../src/php/Controller/UsersController.php';
+require_once __DIR__ . '/../../src/php/Model/UsersModel.php';
+require_once __DIR__ . '/../../src/php/Controller/UsersController.php';
 
 
 class UsersControllerTest extends TestCase

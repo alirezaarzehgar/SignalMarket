@@ -1,7 +1,7 @@
 <?php
 
-require_once __DIR__ . '/../src/php/Model/AdminsModel.php';
-require_once __DIR__ . '/../src/php/Controller/AdminsController.php';
+require_once __DIR__ . '/../../src/php/Model/AdminsModel.php';
+require_once __DIR__ . '/../../src/php/Controller/AdminsController.php';
 
 use PHPUnit\Framework\TestCase;
 
