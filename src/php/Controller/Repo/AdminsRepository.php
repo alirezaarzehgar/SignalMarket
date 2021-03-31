@@ -42,6 +42,13 @@ class AdminsRepository
         return null;
     }
 
+    public function getAdminByPermission($permission): ?mysqli_result
+    {
+        #TODO()
+
+        return null;
+    }
+
     # update section
 
     public function updateAdmin(AdminsModel $admin): ?bool
