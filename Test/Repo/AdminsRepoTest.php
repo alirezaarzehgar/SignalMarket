@@ -3,6 +3,7 @@
 use PHPUnit\Framework\TestCase;
 
 require_once __DIR__ . '/../../src/php/Controller/Repo/AdminsRepository.php';
+require_once __DIR__ . '/../../src/php/Model/AdminsModel.php';
 
 class AdminsRepoTest extends TestCase
 {
@@ -11,10 +12,14 @@ class AdminsRepoTest extends TestCase
     {
         $repo = new AdminsRepository();
 
-        #TODO
+        $admin = new AdminsModel(
+            username: "new admin",
+            password: "1234",
+            permission: "7"
+        );
 
         $excepted = true;
-        $result = true;
+        $result = $repo->addNewAdmin($admin);
 
         $this->assertEquals(
             $excepted,
@@ -29,10 +34,8 @@ class AdminsRepoTest extends TestCase
     {
         $repo = new AdminsRepository();
 
-        #TODO
-
-        $excepted = true;
-        $result = true;
+        $excepted = (new AdminsController())->read();
+        $result = $repo->readAllAdmins();
 
         $this->assertEquals(
             $excepted,
@@ -43,11 +46,16 @@ class AdminsRepoTest extends TestCase
     public function testGetAdminById()
     {
         $repo = new AdminsRepository();
+        $id = 2;
 
-        #TODO
+        foreach ((new AdminsController())->read() as $value)
+            if ($value['id'] == $id)
+                $excepted = $value;
 
-        $excepted = true;
-        $result = true;
+        if (!isset($excepted))
+            $excepted = null;
+
+        $result = $repo->getAdminById($id);
 
         $this->assertEquals(
             $excepted,
@@ -58,11 +66,16 @@ class AdminsRepoTest extends TestCase
     public function testGetAdminByUsername()
     {
         $repo = new AdminsRepository();
+        $username = 2;
 
-        #TODO
+        foreach ((new AdminsController())->read() as $value)
+            if ($value['username'] == $username)
+                $excepted = $value;
 
-        $excepted = true;
-        $result = true;
+        if (!isset($excepted))
+            $excepted = null;
+
+        $result = $repo->getAdminByUsername($username);
 
         $this->assertEquals(
             $excepted,
@@ -73,11 +86,14 @@ class AdminsRepoTest extends TestCase
     public function testGetAdminByPermission()
     {
         $repo = new AdminsRepository();
+        $permission = 755;
+        $excepted = [];
 
-        #TODO
+        foreach ((new AdminsController())->read() as $value)
+            if ($value['permission'] == $permission)
+                array_push($excepted, $value);
 
-        $excepted = true;
-        $result = true;
+        $result = $repo->getAdminByPermission($permission);
 
         $this->assertEquals(
             $excepted,
@@ -85,16 +101,58 @@ class AdminsRepoTest extends TestCase
         );
     }
 
+    public function getFirstAdmin()
+    {
+        $repo = new AdminsRepository();
+
+        foreach ((new AdminsController())->read() as $value) {
+            $excepted = $value;
+            break;
+        }
+
+        if (!isset($excepted))
+            $excepted = null;
+
+        $result = $repo->getFirstAdmin();
+
+        $this->assertEquals(
+            $excepted,
+            $result
+        );
+    }
+
+    public function getLastAdmin()
+    {
+        $repo = new AdminsRepository();
+
+        foreach ((new AdminsController())->read() as $value)
+            $excepted = $value;
+
+        if (!isset($excepted))
+            $excepted = null;
+
+        $result = $repo->getLastAdmin();
+
+        $this->assertEquals(
+            $excepted,
+            $result
+        );
+    }
+
+
     # update section
 
     public function testUpdateAdmin()
     {
         $repo = new AdminsRepository();
 
-        #TODO
+        $admin = new AdminsModel(
+            username: "updated admin username",
+            permission: "7"
+        );
 
         $excepted = true;
-        $result = true;
+        $result = $repo->updateAdmin($admin, 3);
 
         $this->assertEquals(
             $excepted,
@@ -108,8 +166,7 @@ class AdminsRepoTest extends TestCase
     public function testDeleteAdminById()
     {
         $repo = new AdminsRepository();
-
-        #TODO
+        $id = $repo->getLastAdmin()['id'];
 
         $excepted = true;
         $result = true;
@@ -124,10 +181,8 @@ class AdminsRepoTest extends TestCase
     {
         $repo = new AdminsRepository();
 
-        #TODO
-
         $excepted = true;
-        $result = true;
+        $result = $repo->deleteAdminByUsername("new admin");
 
         $this->assertEquals(
             $excepted,
