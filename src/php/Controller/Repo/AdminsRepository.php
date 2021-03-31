@@ -58,6 +58,23 @@ class AdminsRepository
         return $users;
     }
 
+    public function getFirstAdmin(): ?array
+    {
+        foreach ($this->adminc->read() as $value)
+            return $value;
+
+        return null;
+    }
+
+    public function getLastAdmin(): ?array
+    {
+        $user = null;
+        foreach ($this->adminc->read() as $value)
+            $user = $value;
+
+        return $user;
+    }
+
     # update section
 
     public function updateAdmin(
