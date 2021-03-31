@@ -65,8 +65,10 @@ class UsersController
         return $result ? $result : $this->conn->error;
     }
 
-    public function update(UsersModel $user, $id): mysqli_result|string
-    {
+    public function update(
+        UsersModel $user,
+        int|string $id
+    ): bool|string {
         $username = is_null($user->username) ? $this->username : "'{$user->username}'";
         $email = is_null($user->email) ? $this->email : "'{$user->email}'";
         $password = is_null($user->password) ? $this->password : "'{$user->password}'";
@@ -81,7 +83,7 @@ class UsersController
         return $result ? $result : $this->conn->error;
     }
 
-    public function delete($id): bool
+    public function delete(int|string $id): bool
     {
         $sql = "DELETE FROM {$this->table}"
             . " WHERE {$this->id} = '{$id}'";
