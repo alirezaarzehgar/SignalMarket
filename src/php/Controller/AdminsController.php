@@ -67,8 +67,10 @@ class AdminsController
         else return $result;
     }
 
-    public function update(AdminsModel $admin, $id)
-    {
+    public function update(
+        AdminsModel $admin,
+        int|string $id
+    ) {
         $username = is_null($admin->username) ? $this->username : "'{$admin->username}'";
         $password = is_null($admin->password) ? $this->password : "'{$admin->password}'";
         $permission = is_null($admin->permission) ? $this->permission : "'{$admin->permission}'";
@@ -86,7 +88,7 @@ class AdminsController
         else return $this->conn->error;
     }
 
-    public function delete($id)
+    public function delete(int|string $id)
     {
         $sql = "DELETE FROM {$this->table}"
             . " WHERE {$this->id} = '{$id}'";
