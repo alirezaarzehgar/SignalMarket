@@ -111,7 +111,14 @@ class UsersRepositoryTest extends TestCase
     {
         $repo = new UsersRepository();
 
-        #TODO
-        $this->assertTrue(true);
+        $user = $repo->getLastUser();
+
+        $expected = true;
+        $result = $repo->deleteUserById($user['id']);
+
+        $this->assertEquals(
+            $expected,
+            $result
+        );
     }
 }
