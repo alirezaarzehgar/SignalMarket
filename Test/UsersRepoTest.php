@@ -54,6 +54,10 @@ class UsersRepositoryTest extends TestCase
                 break;
             }
 
+
+        if (!isset($expected))
+            $expected = false;
+
         $result = $repo->getUserById($id);
 
         $this->assertEquals(
@@ -65,13 +69,16 @@ class UsersRepositoryTest extends TestCase
     public function testGetUserByUsername()
     {
         $repo = new UsersRepository();
-        $username = 'ali';
+        $username = 'mohammad';
 
         foreach ((new UsersController())->read() as $value)
             if ($value['username'] == $username) {
                 $expected = $value;
                 break;
             }
+
+        if (!isset($expected))
+            $expected = false;
 
         $result = $repo->getUserByUsername($username);
 
@@ -91,6 +98,9 @@ class UsersRepositoryTest extends TestCase
                 $expected = $value;
                 break;
             }
+
+        if (!isset($expected))
+            $expected = false;
 
         $result = $repo->getUserByEmail($email);
 
@@ -140,8 +150,22 @@ class UsersRepositoryTest extends TestCase
     {
         $repo = new UsersRepository();
 
-        #TODO()
-        $this->assertTrue(true);
+        $user = new UsersModel(
+            "edited user name",
+            "editedemailaddress@gmail.com",
+            "412"
+        );
+
+        $expected = true;
+        $result = $repo->updateUser(
+            $user,
+            $repo->getFirstUser()['id']
+        );
+
+        $this->assertEquals(
+            $expected,
+            $result
+        );
     }
 
 
@@ -151,26 +175,66 @@ class UsersRepositoryTest extends TestCase
     {
         $repo = new UsersRepository();
 
-        # TODO()
-        $this->assertTrue(true);
+        $expected = true;
+        $result = $repo->deleteUserById(
+            $repo->getLastUser()['id']
+        );
+
+        $this->assertEquals(
+            $expected,
+            $result
+        );
     }
 
     public function testDeleteUserByUsername()
     {
         $repo = new UsersRepository();
 
-        #TODO()
-        $this->assertTrue(true);
+        $user = new UsersModel(
+            username: "useless user",
+            email: "userless@gmail.com",
+            password: "1234"
+        );
+
+        $repo->addNewUser($user);
+
+        $username = $user->username ?: "something";
+
+        $user = $repo->getUserByUsername(
+            $username
+        );
+
+        $expected = true;
+        $result = $repo->deleteUserByUsername($user['username']);
+
+        $this->assertEquals(
+            $expected,
+            $result
+        );
     }
 
     public function testDeleteUserByEmail()
     {
         $repo = new UsersRepository();
 
-        $user = $repo->getLastUser();
+        $user = new UsersModel(
+            username: "useless user",
+            email: "userless@gmail.com",
+            password: "1234"
+        );
+
+        $repo->addNewUser($user);
+
+        $username = $user->username ?: "something";
+
+        $user = $repo->getUserByUsername(
+            $username
+        );
 
         $expected = true;
-        $result = $repo->deleteUserById($user['id']);
+        $result = $repo->deleteUserByEmail(
+            $user['email']
+        );
 
         $this->assertEquals(
             $expected,
