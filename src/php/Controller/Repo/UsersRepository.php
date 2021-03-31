@@ -59,6 +59,22 @@ class UsersRepository
         return $users;
     }
 
+    public function getFirstUser(): ?array
+    {
+        foreach ($this->userc->read() as $value)
+            return $value;
+
+        return null;
+    }
+
+    public function getLastUser(): ?array
+    {
+        $user = null;
+        foreach ($this->userc->read() as $value)
+            $user = $value;
+
+        return $user;
+    }
 
     # update section
 
