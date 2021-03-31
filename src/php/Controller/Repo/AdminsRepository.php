@@ -42,14 +42,6 @@ class AdminsRepository
         return null;
     }
 
-    public function getAdminByEmail($email): ?mysqli_result
-    {
-        # TODO()
-
-        return null;
-    }
-
-
     # update section
 
     public function updateAdmin(AdminsModel $admin): ?bool
@@ -72,13 +64,6 @@ class AdminsRepository
     public function deleteByUsername($username): ?bool
     {
         #TODO()
-
-        return null;
-    }
-
-    public function deleteByEmail($email): ?bool
-    {
-        #TODO
 
         return null;
     }
