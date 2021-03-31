@@ -2,7 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/../src/php/Controller/UsersController.php';
+require_once __DIR__ . '/../src/php/Controller/Repo/UsersRepository.php';
 
 
 class UsersRepositoryTest extends TestCase
@@ -12,8 +12,19 @@ class UsersRepositoryTest extends TestCase
     {
         $repo = new UsersRepository();
 
-        #TODO
-        $this->assertTrue(true);
+        $user = new UsersModel(
+            username: "new user",
+            email: "testAli@gmail",
+            password: "1234"
+        );
+
+        $expected = true;
+        $result = $repo->addNewUser($user);
+
+        $this->assertEquals(
+            $expected,
+            $result
+        );
     }
 
 
