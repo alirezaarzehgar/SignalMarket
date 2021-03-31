@@ -57,7 +57,7 @@ class UsersController
         else return $this->conn->error;
     }
 
-    public function read()
+    public function read(): mysqli_result|string
     {
         $sql = "SELECT * FROM {$this->table}";
 
