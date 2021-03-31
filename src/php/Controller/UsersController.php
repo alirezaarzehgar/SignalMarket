@@ -28,7 +28,7 @@ class UsersController
                 $db->dbname
             );
 
-            $this->error = "success";
+            $this->error = false;
         } catch (Exception $e) {
 
             $this->error = $e;
