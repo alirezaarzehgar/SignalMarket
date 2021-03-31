@@ -12,10 +12,10 @@ class ProductsRepository
     # create section
     public function addNewProduct(
         ProductsModel $product = null,
-        $admin_name = null,
-        $subject = null,
-        $photo_dir_path = null,
-        $introduction_to_product = null
+        string $admin_name = null,
+        string $subject = null,
+        string $photo_dir_path = null,
+        string $introduction_to_product = null
     ): bool {
         # TODO()
 
@@ -32,21 +32,21 @@ class ProductsRepository
         return null;
     }
 
-    public function getProductById($id): ?mysqli_result
+    public function getProductById(string|int $id): ?array
     {
         # TODO()
 
         return null;
     }
 
-    public function getProductsByAdminName($admin_name): ?mysqli_result
+    public function getProductsByAdminName(string $admin_name): ?array
     {
         #TODO()
 
         return null;
     }
 
-    public function getProductsByCustomerName($customer_name): ?mysqli_result
+    public function getProductsByCustomerName(string $customer_name): ?array
     {
         #TODO()
 
@@ -54,8 +54,8 @@ class ProductsRepository
     }
 
     public function getProductsWithChoosenByCustomer(
-        $customer_name,
-        $isChoosen = true
+        string $customer_name,
+        bool $isChoosen = true
     ): ?mysqli_result {
         #TODO()
 
@@ -63,8 +63,8 @@ class ProductsRepository
     }
 
     public function getProductsWithChoosenByAdmin(
-        $customer_name,
-        $isChoosen = true
+        string $customer_name,
+        bool $isChoosen = true
     ): ?mysqli_result {
         #TODO()
 
@@ -72,18 +72,18 @@ class ProductsRepository
     }
 
     public function getProductsBySuccessPayment(
-        $customer_name,
-        $isSuccess = true
-    ): ?mysqli_result {
+        string $customer_name,
+        bool $isSuccess = true
+    ): ?array {
         #TODO()
 
         return null;
     }
 
     public function getFinishedProducts(
-        $customer_name,
-        $isFinished
-    ): ?mysqli_result {
+        string $customer_name,
+        bool $isFinished
+    ): ?array {
         #TODO()
 
         return null;
@@ -100,10 +100,10 @@ class ProductsRepository
 
     public function updateProductCreateNewProductByAdmin(
         ProductsModel $product = null,
-        $admin_name = null,
-        $subject = null,
-        $photo_dir_path = null,
-        $introduction_to_product = null
+        string $admin_name = null,
+        string $subject = null,
+        string $photo_dir_path = null,
+        string $introduction_to_product = null
     ): ?bool {
         #TODO()
 
@@ -112,10 +112,10 @@ class ProductsRepository
 
     public function updateProductChooseCustomerByUser(
         ProductsModel $product = null,
-        $sent_signal_dir_path = null,
-        $customer_name = null,
-        $expected_date = null,
-        $sent_date = null
+        string $sent_signal_dir_path = null,
+        string $customer_name = null,
+        string $expected_date = null,
+        string $sent_date = null
     ): ?bool {
         #TODO()
 
@@ -124,17 +124,19 @@ class ProductsRepository
 
     public function updateProductChooseAdminByAdmin(
         ProductsModel $product = null,
-        $choosen_by_admin = null,
-        $price = null,
-        $accepted_date = null
+        bool $choosen_by_admin = null,
+        string $price = null,
+        string $accepted_date = null
     ): ?bool {
         #TODO()
 
         return null;
     }
 
-    public function updateSuccessPaymentByUser($success_payment, $id): ?bool
-    {
+    public function updateSuccessPaymentByUser(
+        bool $success_payment,
+        string|int $id
+    ): ?bool {
         #TODO()
 
         return null;
@@ -142,7 +144,7 @@ class ProductsRepository
 
     # delete section
 
-    public function deleteProductById($id): ?bool
+    public function deleteProductById(string|int $id): ?bool
     {
         # TODO()
 
