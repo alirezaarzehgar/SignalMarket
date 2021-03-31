@@ -90,9 +90,7 @@ class UsersRepository
 
     public function deleteUserById($id): ?bool
     {
-        # TODO()
-
-        return null;
+        return $this->userc->delete($id);
     }
 
     public function deleteUserByUsername($username): ?bool
