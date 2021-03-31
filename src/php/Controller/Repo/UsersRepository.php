@@ -15,7 +15,7 @@ class UsersRepository
     }
 
     # create section
-    public function addNewUser(UsersModel $user): string
+    public function addNewUser(UsersModel $user): string|bool
     {
         return $this->userc->create($user);
     }
