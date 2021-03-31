@@ -40,7 +40,7 @@ class UsersController
         return $this->conn->close();
     }
 
-    public function create(UsersModel $user)
+    public function create(UsersModel $user): string|bool
     {
         $sql = "INSERT INTO {$this->table} ("
             . "{$this->username},"
@@ -53,7 +53,7 @@ class UsersController
             . ")";
 
         if ($this->conn->query($sql))
-            return "success";
+            return true;
         else return $this->conn->error;
     }
 
