@@ -41,6 +41,17 @@ class UsersRepositoryTest extends TestCase
         $this->assertTrue(true);
     }
 
+    public function testGetFirstUser()
+    {
+        #TODO
+        $this->assertTrue(true);
+    }
+
+    public function testGetLastUser()
+    {
+        #TODO
+        $this->assertTrue(true);
+    }
 
     # update section
 
