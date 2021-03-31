@@ -85,8 +85,10 @@ class ProductsController
         return !$result ? $this->conn->error : $result;
     }
 
-    public function update(ProductsModel $product, $id)
-    {
+    public function update(
+        ProductsModel $product,
+        int|string $id
+    ) {
         $admin_name = is_null($product->admin_name) ? $this->admin_name : "'{$product->admin_name}'";
         $subject = is_null($product->subject) ? $this->subject : "'{$product->subject}'";
         $photo_dir_path = is_null($product->photo_dir_path) ? $this->photo_dir_path : "'{$product->photo_dir_path}'";
@@ -131,7 +133,7 @@ class ProductsController
         return $result ? $result : $this->conn->error;
     }
 
-    public function delete($id)
+    public function delete(int|string $id)
     {
         $sql = "DELETE FROM {$this->table}"
             . " WHERE {$this->id} = {$id}";
