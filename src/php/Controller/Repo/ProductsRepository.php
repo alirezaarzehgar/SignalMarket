@@ -6,7 +6,7 @@ class ProductsRepository
 {
     public function __construct()
     {
-        # TODO()
+        #TODO
     }
 
     # create section
@@ -17,7 +17,7 @@ class ProductsRepository
         string $photo_dir_path = null,
         string $introduction_to_product = null
     ): bool {
-        # TODO()
+        #TODO
 
         return true;
     }
@@ -27,28 +27,28 @@ class ProductsRepository
 
     public function getAllProducts(): ?mysqli_result
     {
-        # TODO()
+        #TODO
 
         return null;
     }
 
     public function getProductById(string|int $id): ?array
     {
-        # TODO()
+        #TODO
 
         return null;
     }
 
     public function getProductsByAdminName(string $admin_name): ?array
     {
-        #TODO()
+        #TODO
 
         return null;
     }
 
     public function getProductsByCustomerName(string $customer_name): ?array
     {
-        #TODO()
+        #TODO
 
         return null;
     }
@@ -57,7 +57,7 @@ class ProductsRepository
         string $customer_name,
         bool $isChoosen = true
     ): ?mysqli_result {
-        #TODO()
+        #TODO
 
         return null;
     }
@@ -66,7 +66,7 @@ class ProductsRepository
         string $customer_name,
         bool $isChoosen = true
     ): ?mysqli_result {
-        #TODO()
+        #TODO
 
         return null;
     }
@@ -75,7 +75,7 @@ class ProductsRepository
         string $customer_name,
         bool $isSuccess = true
     ): ?array {
-        #TODO()
+        #TODO
 
         return null;
     }
@@ -84,7 +84,7 @@ class ProductsRepository
         string $customer_name,
         bool $isFinished
     ): ?array {
-        #TODO()
+        #TODO
 
         return null;
     }
@@ -93,7 +93,7 @@ class ProductsRepository
 
     public function updateProduct(ProductsModel $product): ?bool
     {
-        #TODO()
+        #TODO
 
         return null;
     }
@@ -105,7 +105,7 @@ class ProductsRepository
         string $photo_dir_path = null,
         string $introduction_to_product = null
     ): ?bool {
-        #TODO()
+        #TODO
 
         return null;
     }
@@ -117,7 +117,7 @@ class ProductsRepository
         string $expected_date = null,
         string $sent_date = null
     ): ?bool {
-        #TODO()
+        #TODO
 
         return null;
     }
@@ -128,7 +128,7 @@ class ProductsRepository
         string $price = null,
         string $accepted_date = null
     ): ?bool {
-        #TODO()
+        #TODO
 
         return null;
     }
@@ -137,7 +137,7 @@ class ProductsRepository
         bool $success_payment,
         string|int $id
     ): ?bool {
-        #TODO()
+        #TODO
 
         return null;
     }
@@ -146,7 +146,7 @@ class ProductsRepository
 
     public function deleteProductById(string|int $id): ?bool
     {
-        # TODO()
+        #TODO
 
         return null;
     }
