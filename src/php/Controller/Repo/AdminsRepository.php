@@ -44,7 +44,7 @@ class AdminsRepository
 
     public function getAdminByUsername(string $username): ?array
     {
-        return $this->getUserByCondition("username", $$username);
+        return $this->getUserByCondition("username", $username);
     }
 
     public function getAdminByPermission(string|int $permission): ?array
