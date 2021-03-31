@@ -65,33 +65,73 @@ class UsersRepositoryTest extends TestCase
     public function testGetUserByUsername()
     {
         $repo = new UsersRepository();
+        $username = 'ali';
 
-        #TODO
-        $this->assertTrue(true);
+        foreach ((new UsersController())->read() as $value)
+            if ($value['username'] == $username) {
+                $expected = $value;
+                break;
+            }
+
+        $result = $repo->getUserByUsername($username);
+
+        $this->assertEquals(
+            $expected,
+            $result
+        );
     }
 
     public function testGetUserByEmail()
     {
         $repo = new UsersRepository();
+        $email = 'hamed@gmail.com';
 
-        #TODO
-        $this->assertTrue(true);
+        foreach ((new UsersController())->read() as $value)
+            if ($value['email'] == $email) {
+                $expected = $value;
+                break;
+            }
+
+        $result = $repo->getUserByEmail($email);
+
+        $this->assertEquals(
+            $expected,
+            $result
+        );
     }
 
     public function testGetFirstUser()
     {
         $repo = new UsersRepository();
 
-        #TODO
-        $this->assertTrue(true);
+        foreach ((new UsersController())->read() as $value) {
+            $expected = $value;
+            break;
+        }
+
+
+        $result = $repo->getFirstUser();
+
+        $this->assertEquals(
+            $expected,
+            $result
+        );
     }
 
     public function testGetLastUser()
     {
         $repo = new UsersRepository();
 
-        #TODO
-        $this->assertTrue(true);
+        foreach ((new UsersController())->read() as $value)
+            $expected = $value;
+
+
+        $result = $repo->getLastUser();
+
+        $this->assertEquals(
+            $expected,
+            $result
+        );
     }
 
     # update section
