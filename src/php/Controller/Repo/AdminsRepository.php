@@ -61,7 +61,7 @@ class AdminsRepository
         return null;
     }
 
-    public function deleteByUsername($username): ?bool
+    public function deleteAdminByUsername($username): ?bool
     {
         #TODO()
 
