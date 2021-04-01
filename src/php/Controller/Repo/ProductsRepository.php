@@ -143,6 +143,15 @@ class ProductsRepository
         return $products;
     }
 
+    public function getLastProduct(): ?array
+    {
+        $product = null;
+        foreach ($this->proc->read() as $value)
+            $product = $value;
+
+        return $value;
+    }
+
     # update section
 
     public function updateProduct(
