@@ -52,7 +52,7 @@ class ProductsControllerTest extends TestCase
         $product = new ProductsModel(
             choosen_by_customer: true,
             sent_signal_dir_path: "/path/signal",
-            customer_name: "ali",
+            customer_name: "hamed",
             expected_date: "2020-8-12",
             sent_date: "2020-10-20"
         );
