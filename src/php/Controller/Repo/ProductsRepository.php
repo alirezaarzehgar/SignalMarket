@@ -177,7 +177,7 @@ class ProductsRepository
         string $photo_dir_path = null,
         string $introduction_to_product = null,
         string|int $id
-    ): ?bool {
+    ): bool|string {
         if (is_null($product)) {
             $product = new ProductsModel(
                 admin_name: $admin_name,
