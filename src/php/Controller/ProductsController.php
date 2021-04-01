@@ -95,6 +95,7 @@ class ProductsController
         $introduction_to_product = is_null($product->photo_dir_path) ? $this->photo_dir_path : "'{$product->photo_dir_path}'";
 
         $choosen_by_customer = is_null($product->choosen_by_customer) ? $this->choosen_by_customer : "'{$product->choosen_by_customer}'";
+        $customer_name = is_null($product->customer_name) ? $this->customer_name : "'{$product->customer_name}'";
         $sent_signal_dir_path = is_null($product->sent_signal_dir_path) ? $this->sent_signal_dir_path : "'{$product->sent_signal_dir_path}'";
         $expected_date = is_null($product->expected_date) ? $this->expected_date : "'{$product->expected_date}'";
         $sent_date = is_null($product->sent_date) ? $this->sent_date : "'{$product->sent_date}'";
@@ -115,6 +116,7 @@ class ProductsController
             . " {$this->introduction_to_product} = $introduction_to_product,"
 
             . " {$this->choosen_by_customer} = $choosen_by_customer,"
+            . " {$this->customer_name} = $customer_name,"
             . " {$this->sent_signal_dir_path} = $sent_signal_dir_path,"
             . " {$this->expected_date} = $expected_date,"
             . " {$this->sent_date} = $sent_date,"
