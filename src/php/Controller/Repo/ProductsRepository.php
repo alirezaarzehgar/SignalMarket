@@ -43,7 +43,8 @@ class ProductsRepository
         string|int $key,
         string $val
     ): ?array {
-        foreach ($this->proc->read() as $value)
+        $prod = $this->proc->read();
+        while ($value = $prod->fetch_assoc())
             if ($value[$key] == $val)
                 return $value;
 
@@ -55,7 +56,9 @@ class ProductsRepository
         string $val
     ): array {
         $products = [];
-        foreach ($this->proc->read() as $value)
+
+        $prod = $this->proc->read();
+        while ($value = $prod->fetch_assoc())
             if ($value[$key] == $val)
                 array_push($products, $value);
 
@@ -84,7 +87,9 @@ class ProductsRepository
     ): ?array {
         $products = [];
 
-        foreach ($this->proc->read() as $value)
+        $prod = $this->proc->read();
+
+        while ($value = $prod->fetch_assoc())
             if (
                 $value[$key] == $val and
                 $value['customer_name'] == $customer_name
@@ -129,11 +134,13 @@ class ProductsRepository
 
     public function getFinishedProducts(
         string $customer_name,
-        bool $isFinished
+        bool $isFinished = true
     ): ?array {
         $products = [];
 
-        foreach ($this->proc->read() as $value)
+        $prod = $this->proc->read();
+
+        while ($value = $prod->fetch_assoc())
             if (
                 !empty($value['final_product_path']) and
                 $value['customer_name'] == $customer_name
@@ -146,10 +153,12 @@ class ProductsRepository
     public function getLastProduct(): ?array
     {
         $product = null;
-        foreach ($this->proc->read() as $value)
+        $prod = $this->proc->read();
+
+        while ($value = $prod->fetch_assoc())
             $product = $value;
 
-        return $value;
+        return $product;
     }
 
     # update section
