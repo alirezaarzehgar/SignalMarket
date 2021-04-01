@@ -4,9 +4,11 @@ require_once __DIR__ . '/../ProductsController.php';
 
 class ProductsRepository
 {
+    public ProductsController $proc;
+
     public function __construct()
     {
-        #TODO
+        $this->proc = new ProductsController();
     }
 
     # create section
@@ -17,9 +19,16 @@ class ProductsRepository
         string $photo_dir_path = null,
         string $introduction_to_product = null
     ): bool {
-        #TODO
+        if (is_null($product)) {
+            $product = new ProductsModel(
+                admin_name: $admin_name,
+                subject: $subject,
+                photo_dir_path: $photo_dir_path,
+                introduction_to_product: $introduction_to_product
+            );
+        }
 
-        return true;
+        return $this->proc->create($product);
     }
 
 
@@ -27,75 +36,120 @@ class ProductsRepository
 
     public function getAllProducts(): ?mysqli_result
     {
-        #TODO
+        return $this->proc->read();
+    }
+
+    private function getProductWithCondition(
+        string|int $key,
+        string $val
+    ): ?array {
+        foreach ($this->proc->read() as $value)
+            if ($value[$key] == $val)
+                return $value;
 
         return null;
+    }
+
+    private function getProductsWithCondition(
+        string|int $key,
+        string $val
+    ): array {
+        $products = [];
+        foreach ($this->proc->read() as $value)
+            if ($value[$key] == $val)
+                array_push($products, $value);
+
+        return $products;
     }
 
     public function getProductById(string|int $id): ?array
     {
-        #TODO
-
-        return null;
+        return $this->getProductWithCondition('id', $id);
     }
 
     public function getProductsByAdminName(string $admin_name): ?array
     {
-        #TODO
-
-        return null;
+        return $this->getProductsWithCondition("admin_name", $admin_name);
     }
 
     public function getProductsByCustomerName(string $customer_name): ?array
     {
-        #TODO
+        return $this->getProductsWithCondition("customer_name", $customer_name);
+    }
 
-        return null;
+    private function getProductsWithConditionAndCustomer(
+        string $key,
+        string|int $val,
+        string $customer_name
+    ): ?array {
+        $products = [];
+
+        foreach ($this->proc->read() as $value)
+            if (
+                $value[$key] == $val and
+                $value['customer_name'] == $customer_name
+            )
+                array_push($products, $value);
+
+        return $products;
     }
 
     public function getProductsWithChoosenByCustomer(
         string $customer_name,
         bool $isChoosen = true
-    ): ?mysqli_result {
-        #TODO
-
-        return null;
+    ): ?array {
+        return $this->getProductsWithConditionAndCustomer(
+            key: 'choosen_by_customer',
+            val: $isChoosen,
+            customer_name: $customer_name
+        );
     }
 
     public function getProductsWithChoosenByAdmin(
         string $customer_name,
         bool $isChoosen = true
-    ): ?mysqli_result {
-        #TODO
-
-        return null;
+    ): ?array {
+        return $this->getProductsWithConditionAndCustomer(
+            key: 'choosen_by_admin',
+            val: $isChoosen,
+            customer_name: $customer_name
+        );
     }
 
     public function getProductsBySuccessPayment(
         string $customer_name,
         bool $isSuccess = true
     ): ?array {
-        #TODO
-
-        return null;
+        return $this->getProductsWithConditionAndCustomer(
+            key: 'success_payment',
+            val: $isSuccess,
+            customer_name: $customer_name
+        );
     }
 
     public function getFinishedProducts(
         string $customer_name,
         bool $isFinished
     ): ?array {
-        #TODO
+        $products = [];
 
-        return null;
+        foreach ($this->proc->read() as $value)
+            if (
+                !empty($value['final_product_path']) and
+                $value['customer_name'] == $customer_name
+            )
+                array_push($products, $value);
+
+        return $products;
     }
 
     # update section
 
-    public function updateProduct(ProductsModel $product): ?bool
-    {
-        #TODO
-
-        return null;
+    public function updateProduct(
+        ProductsModel $product,
+        string|int $id
+    ): ?bool {
+        return $this->proc->update($product, $id);
     }
 
     public function updateProductCreateNewProductByAdmin(
@@ -103,11 +157,19 @@ class ProductsRepository
         string $admin_name = null,
         string $subject = null,
         string $photo_dir_path = null,
-        string $introduction_to_product = null
+        string $introduction_to_product = null,
+        string|int $id
     ): ?bool {
-        #TODO
+        if (is_null($product)) {
+            $product = new ProductsModel(
+                admin_name: $admin_name,
+                subject: $subject,
+                photo_dir_path: $photo_dir_path,
+                introduction_to_product: $introduction_to_product
+            );
+        }
 
-        return null;
+        return $this->proc->update($product, $id);
     }
 
     public function updateProductChooseCustomerByUser(
@@ -115,39 +177,54 @@ class ProductsRepository
         string $sent_signal_dir_path = null,
         string $customer_name = null,
         string $expected_date = null,
-        string $sent_date = null
+        string $sent_date = null,
+        string|int $id
     ): ?bool {
-        #TODO
+        if (is_null($product)) {
+            $product = new ProductsModel(
+                choosen_by_customer: true,
+                sent_signal_dir_path: $sent_signal_dir_path,
+                customer_name: $customer_name,
+                expected_date: $expected_date,
+                sent_date: $sent_date
+            );
+        }
 
-        return null;
+        return $this->proc->update($product, $id);
     }
 
     public function updateProductChooseAdminByAdmin(
         ProductsModel $product = null,
-        bool $choosen_by_admin = null,
         string $price = null,
-        string $accepted_date = null
+        string $accepted_date = null,
+        string|int $id
     ): ?bool {
-        #TODO
+        if (is_null($product)) {
+            $product = new ProductsModel(
+                choosen_by_admin: true,
+                price: $price,
+                accepted_date: $accepted_date
+            );
+        }
 
-        return null;
+        return $this->proc->update($product, $id);
     }
 
     public function updateSuccessPaymentByUser(
         bool $success_payment,
         string|int $id
     ): ?bool {
-        #TODO
+        $product = new ProductsModel(
+            success_payment: $success_payment
+        );
 
-        return null;
+        return $this->proc->update($product, $id);
     }
 
     # delete section
 
     public function deleteProductById(string|int $id): ?bool
     {
-        #TODO
-
-        return null;
+        return $this->proc->delete($id);
     }
 }
