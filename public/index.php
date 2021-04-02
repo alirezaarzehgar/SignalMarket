@@ -1,3 +1,11 @@
+<?php
+
+if (isset($_COOKIE['admin'])) {
+    header("location: admin.php");
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
