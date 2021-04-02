@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/../../../config.php';
 require_once __DIR__ . '/../Model/UsersModel.php';
+require_once __DIR__ . '/../Common/Hashing.php';
 
 
 class UsersController
@@ -42,6 +43,8 @@ class UsersController
 
     public function create(UsersModel $user): string|bool
     {
+        $securePassword = Hashing::encrypt($user->password ?: "");
+
         $sql = "INSERT INTO {$this->table} ("
             . "{$this->username},"
             . "{$this->email},"
@@ -49,7 +52,7 @@ class UsersController
             . ") VALUES ("
             . "'{$user->username}',"
             . "'{$user->email}',"
-            . "'{$user->password}'"
+            . "'{$securePassword}'"
             . ")";
 
         if ($this->conn->query($sql))
@@ -69,9 +72,11 @@ class UsersController
         UsersModel $user,
         int|string $id
     ): bool|string {
+        $securePassword = Hashing::encrypt($user->password ?: "");
+
         $username = is_null($user->username) ? $this->username : "'{$user->username}'";
         $email = is_null($user->email) ? $this->email : "'{$user->email}'";
-        $password = is_null($user->password) ? $this->password : "'{$user->password}'";
+        $password = is_null($user->password) ? $this->password : "'{$securePassword}'";
 
         $sql = "UPDATE {$this->table}"
             . " SET {$this->username} = {$username},"
