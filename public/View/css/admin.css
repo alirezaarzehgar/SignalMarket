@@ -1,2 +1,33 @@
-
-/*# sourceMappingURL=admin.css.map *//*# sourceMappingURL=admin.css.map */
+header {
+  overflow: visible;
+  background-color: rgba(37, 37, 37, 0.788);
+}
+header a {
+  padding: 15px 15px;
+  color: white;
+}
+header a:hover {
+  text-decoration: none;
+}
+header .dropdown .btn {
+  color: white;
+  background-color: rgba(65, 63, 63, 0.788);
+}
+header .dropdown ul {
+  background-color: #252525;
+}
+header .dropdown ul li {
+  padding-bottom: 10px;
+  padding-top: 10px;
+  text-align: center;
+}
+header .dropdown ul li a {
+  font-size: 10px;
+  color: white;
+}
+header .dropdown ul li a:hover {
+  color: white;
+}
+header .dropdown ul li:hover {
+  background-color: #141414;
+}/*# sourceMappingURL=admin.css.map */

@@ -1,0 +1,44 @@
+header {
+  overflow: visible;
+  background-color: rgba(37, 37, 37, 0.788);
+
+  a {
+    padding: 15px 15px;
+    color: white;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  .dropdown {
+    .btn {
+      color: white;
+      background-color: rgba(65, 63, 63, 0.788);
+    }
+
+    ul {
+      background-color: rgba(37, 37, 37);
+
+      li {
+        padding-bottom: 10px;
+        padding-top: 10px;
+
+        text-align: center;
+
+        a {
+          font-size: 10px;
+          color: white;
+
+          &:hover {
+            color: white;
+          }
+        }
+
+        &:hover {
+          background-color: rgba(20, 20, 20);
+        }
+      }
+    }
+  }
+}
