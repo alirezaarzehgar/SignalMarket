@@ -1,0 +1,11 @@
+#admin-cart {
+  min-height: 400px;
+  min-width: 300px;
+}
+
+@media screen and (max-width: 600px) {
+  #admin-cart {
+    min-height: 200px;
+    min-width: 80%;
+  }
+}/*# sourceMappingURL=add-and-edit-admins.css.map */
