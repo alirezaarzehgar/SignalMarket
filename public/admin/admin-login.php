@@ -3,7 +3,7 @@
 session_start();
 
 if (isset($_SESSION['admin']))
-    header("location: admin.php");
+    header("location: /public/admin");
 
 ?>
 
@@ -15,9 +15,9 @@ if (isset($_SESSION['admin']))
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome Admin</title>
-    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
-    <link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="View/css/admin-login.css">
+    <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../../node_modules/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../View/css/admin-login.css">
 </head>
 
 <body>
@@ -31,7 +31,7 @@ if (isset($_SESSION['admin']))
         <div class="cube"></div>
 
         <main class="container d-flex justify-content-center align-items-center">
-            <form class="p-5 d-flex flex-column" action="admin.php" method="POST">
+            <form class="p-5 d-flex flex-column" action="index.php" method="POST">
                 <h1 class="text-center text-white mb-5">Login</h1>
                 <input class="m-1" type="text" name="username" id="username" placeholder="Enter username" autocomplete="off">
                 <p class="text-white ml-3" id="username-finished"></p>
@@ -46,9 +46,9 @@ if (isset($_SESSION['admin']))
 
 
 
-    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="View/js/admin-login.js"></script>
+    <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="../../node_modules/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="../View/js/admin-login.js"></script>
 </body>
 
 </html>

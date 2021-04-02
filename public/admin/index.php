@@ -12,11 +12,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $_SESSION['admin'] = $_POST['username'];
     echo "cookie admin crated : " . $_COOKIE['admin'];
-    header("location: admin.php");
+    header("location: /public/admin");
 }
 
 if (!isset($_COOKIE['admin']))
-    header("location: admin-login.php");
+    header("location: /public/admin/admin-login.php");
 
 ?>
 
@@ -28,9 +28,9 @@ if (!isset($_COOKIE['admin']))
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome Admin</title>
-    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
-    <link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="View/css/public.css">
+    <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../../node_modules/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../View/css/public.css">
 </head>
 
 <body>
@@ -47,9 +47,9 @@ if (!isset($_COOKIE['admin']))
 
     </footer>
 
-    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="View/js/index.js"></script>
+    <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="../../node_modules/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="../View/js/index.js"></script>
 </body>
 
 </html>

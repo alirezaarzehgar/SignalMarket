@@ -1,7 +1,9 @@
 <?php
 
-if (isset($_COOKIE['admin'])) {
-    header("location: admin.php");
+session_start();
+
+if (isset($_SESSION['admin'])) {
+    header("location: /public/admin/");
 }
 
 ?>
