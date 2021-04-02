@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/../../../config.php';
 require_once __DIR__ . '/../Model/AdminsModel.php';
+require_once __DIR__ . '/../Common/Hashing.php';
 
 
 class AdminsController
@@ -42,13 +43,15 @@ class AdminsController
 
     public function create(AdminsModel $admin)
     {
+        $securePassword = Hashing::encrypt($admin->password ?: "");
+
         $sql = "INSERT INTO {$this->table} ("
             . "{$this->username},"
             . "{$this->password},"
             . "{$this->permission}"
             . ") VALUES ("
             . "'{$admin->username}',"
-            . "'{$admin->password}',"
+            . "'{$securePassword}',"
             . "'{$admin->permission}'"
             . ")";
 
@@ -71,8 +74,10 @@ class AdminsController
         AdminsModel $admin,
         int|string $id
     ) {
+        $securePassword = Hashing::encrypt($admin->password ?: "");
+
         $username = is_null($admin->username) ? $this->username : "'{$admin->username}'";
-        $password = is_null($admin->password) ? $this->password : "'{$admin->password}'";
+        $password = is_null($admin->password) ? $this->password : "'{$securePassword}'";
         $permission = is_null($admin->permission) ? $this->permission : "'{$admin->permission}'";
 
         $sql = "UPDATE {$this->table}"
