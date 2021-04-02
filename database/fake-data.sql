@@ -32,17 +32,17 @@ INSERT INTO admins
 ) VALUES (
     'ali',
     md5('1234'),
-    755
+    6
 ),
 (
     'mohammad',
     md5('1234'),
-    755
+    2
 ),
 (
     'hamed',
     md5('1234'),
-    755
+    0
 );
 
 SELECT * FROM admins;
