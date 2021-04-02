@@ -31,17 +31,17 @@ INSERT INTO admins
     permission
 ) VALUES (
     'ali',
-    '1234',
+    md5('1234'),
     755
 ),
 (
     'mohammad',
-    '1234',
+    md5('1234'),
     755
 ),
 (
     'hamed',
-    '1234',
+    md5('1234'),
     755
 );
 
