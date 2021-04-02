@@ -30,13 +30,13 @@ if (!isset($_COOKIE['admin']))
     <title>Welcome Admin</title>
     <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="../../node_modules/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../View/css/public.css">
+    <link rel="stylesheet" href="../View/css/admin.css">
 </head>
 
 <body>
 
-    <header>
-        <h1> Hello <?= $_COOKIE['admin']; ?></h1>
+    <header class="container-fluid">
+
     </header>
 
     <main>
@@ -49,7 +49,7 @@ if (!isset($_COOKIE['admin']))
 
     <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
     <script src="../../node_modules/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="../View/js/index.js"></script>
+    <script src="../View/js/admin.js"></script>
 </body>
 
 </html>
