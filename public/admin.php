@@ -1,3 +1,25 @@
+<?php
+session_start();
+
+$_SESSION['admin'] = $_COOKIE['admin'];
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    setcookie(
+        "admin",
+        $_POST['username'],
+        time() + (50 * 50 * 24 * 100)
+    );
+
+    $_SESSION['admin'] = $_POST['username'];
+    echo "cookie admin crated : " . $_COOKIE['admin'];
+    header("location: admin.php");
+}
+
+if (!isset($_COOKIE['admin']))
+    header("location: admin-login.php");
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,10 +36,10 @@
 <body>
 
     <header>
-
+        <h1> Hello <?= $_COOKIE['admin']; ?></h1>
     </header>
 
-    <main class="container">
+    <main>
 
     </main>
 
