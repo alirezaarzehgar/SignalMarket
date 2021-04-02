@@ -23,6 +23,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 if (!isset($_COOKIE['admin']))
     header("location: /public/admin/admin-login.php");
 
+if (
+    $_SERVER['REQUEST_METHOD'] == 'GET' and
+    $_GET['request'] == "logout"
+) {
+    setcookie(
+        "admin",
+        null,
+        time() - 3600
+    );
+
+    $_SERVER['admin'] = null;
+
+    header("location: /public/admin");
+}
+
 // calculate admin permission
 $permission = $repo->getAdminByUsername($_COOKIE['admin'])['permission'];
 ?>
@@ -35,9 +50,9 @@ $permission = $repo->getAdminByUsername($_COOKIE['admin'])['permission'];
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome Admin</title>
-    <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.css">
-    <link rel="stylesheet" href="../../node_modules/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../View/css/admin.css">
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="/node_modules/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/public/View/css/admin.css">
 
 </head>
 
@@ -52,14 +67,14 @@ $permission = $repo->getAdminByUsername($_COOKIE['admin'])['permission'];
             <div class="dropdown">
                 <button class="btn dropdown-toggle" type="button" data-toggle="dropdown"><?= $_COOKIE['admin'] ?></button>
                 <ul class="dropdown-menu">
-                    <li><a href="#">Edit Password</a></li>
-                    <?php if ($permission == 6) : ?>
-                        
-                    <?php else: if ($permission == 2) : ?>
-
+                    <li><a href="/public/admin/edit-password.php">Edit Password</a></li>
+                    <?php if ($permission == Permission::$read) : ?>
+                        <li><a href="#">see another admins</a></li>
+                    <?php elseif ($permission == Permission::$write) : ?>
+                        <li><a href="#">Add & Edit another admins</a></li>
                     <?php endif ?>
 
-                    <li><a href="#">Logout</a></li>
+                    <li><a href="/public/admin/index.php?request=logout">Logout</a></li>
                 </ul>
             </div>
         </div>
@@ -73,10 +88,10 @@ $permission = $repo->getAdminByUsername($_COOKIE['admin'])['permission'];
 
     </footer>
 
-    <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="../../node_modules/popper.js/dist/popper.min.js"></script>
-    <script src="../../node_modules/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="../View/js/admin.js"></script>
+    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="/node_modules/popper.js/dist/popper.min.js"></script>
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="/public/View/js/admin.js"></script>
 </body>
 
 </html>
