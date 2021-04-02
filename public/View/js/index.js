@@ -1,9 +1,8 @@
-function myFunction() {
-  var x = $("#myTopnav");
-
-  if (x.className === "topnav") {
-    x.className += " responsive";
+$(".icon").on("click", function () {
+  var el = $("#topNavbar");
+  if (!el.hasClass("responsive")) {
+    el.addClass("responsive");
   } else {
-    x.className = "topnav";
+    el.removeClass("responsive");
   }
-}
+});

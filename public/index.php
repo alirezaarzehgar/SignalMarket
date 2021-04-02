@@ -12,20 +12,24 @@
 </head>
 
 <body>
-    <div class="topnav" id="myTopnav">
-        <a href="#home" class="active">Home</a>
-        <a href="#news">News</a>
-        <a href="#contact">Contact</a>
-        <a href="#about">About</a>
-        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-            <i class="fa fa-bars"></i>
-        </a>
-    </div>
 
-    <div style="padding-left:16px">
-        <h2>Responsive Topnav Example</h2>
-        <p>Resize the browser window to see how it works.</p>
-    </div>
+    <header>
+        <div class="navbar navbar-expand-sm bg-dark" id="topNavbar">
+            <a class="nav-item p-4" href="#">Login</a>
+            <a class="nav-item p-4" href="#">Logout</a>
+            <a class="nav-item p-4" href="#">SignUp</a>
+
+        </div>
+    </header>
+
+    <main class="container">
+        <h1> this is the test responsive </h1>
+        <p> i wanna create Scientific Market </p>
+    </main>
+
+    <footer>
+
+    </footer>
 
     <script src="../node_modules/jquery/dist/jquery.min.js"></script>
     <script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
