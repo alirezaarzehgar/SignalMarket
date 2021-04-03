@@ -43,7 +43,7 @@ INSERT INTO users (
 ),
 (
     'zohre',
-    "zohremd5('1234')",
+    "zohre-arzehgar76-12444@gmail",
     md5('1234')
 ),
 (
