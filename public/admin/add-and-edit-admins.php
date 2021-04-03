@@ -128,7 +128,7 @@ $allAdmins = $repo->readAllAdmins();
                     <h1 class="flex-grow-1"><?= $value['username'] ?></h1>
                     <h6 class="text-left p-3" id="intro-<?= $value['username'] ?>"><?= $accessIntro ?></h6>
 
-                    <div class="<?php if ($_SESSION['permission'] == Permission::$write) echo "overally"; ?>">
+                    <div class="overally <?php if ($_SESSION['permission'] == Permission::$read) echo "hidden"; ?>">
                         <div class="container p-3 h-100">
                             <div class="d-flex flex-column justify-content-around h-100">
                                 <h2> Edit Admin </h2>
@@ -146,6 +146,7 @@ $allAdmins = $repo->readAllAdmins();
                                 </div>
 
                                 <button class="m-1 btn btn-secondary text-center" id="submit-<?= $value['username'] ?>">Update</button>
+                                <button class="m-1 btn btn-secondary text-center" id="delete-<?= $value['username'] ?>">Delete</button>
 
                                 <script>
                                     handleCarts('<?= $value['username'] ?>')

@@ -74,4 +74,16 @@ function handleCarts(username) {
       }
     );
   });
+
+  $("#delete-" + username).on("click", function () {
+    $.getJSON(
+      "/api/admin_api.php",
+      { req: "delete", username: username },
+      function (data, textStatus, jqXHR) {
+        $("#admin-cart-" + username).hide("slow", function () {
+          $("#admin-cart-" + username).remove();
+        });
+      }
+    );
+  });
 }
