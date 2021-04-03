@@ -24,7 +24,7 @@ INSERT INTO users (
 (
     'hosein',
     "hosein@gmail.com",
-    md5('1234'),
+    md5('1234')
 ),
 (
     'mehrdad',
