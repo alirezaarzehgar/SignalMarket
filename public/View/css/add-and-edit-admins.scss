@@ -1,4 +1,4 @@
-#admin-cart {
+.admin-cart {
   position: relative;
   min-height: 400px;
   min-width: 300px;
@@ -35,5 +35,23 @@
   #admin-cart {
     min-height: 200px;
     min-width: 80%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  h3 {
+    font-size: 17px;
+  }
+
+  .dropdown {
+    margin-right: 100px;
+  }
+
+  ul {
+    li {
+      a {
+        font-size: 10px !important;
+      }
+    }
   }
 }

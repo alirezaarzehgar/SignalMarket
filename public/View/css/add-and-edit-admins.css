@@ -30,4 +30,17 @@
     min-height: 200px;
     min-width: 80%;
   }
+}
+@media screen and (max-width: 600px) {
+  h3 {
+    font-size: 17px;
+  }
+
+  .dropdown {
+    margin-right: 100px;
+  }
+
+  ul li a {
+    font-size: 10px !important;
+  }
 }/*# sourceMappingURL=add-and-edit-admins.css.map */
