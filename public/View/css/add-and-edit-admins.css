@@ -1,6 +1,28 @@
-#admin-cart {
+.admin-cart {
+  position: relative;
   min-height: 400px;
   min-width: 300px;
+}
+
+.overally {
+  position: absolute;
+  bottom: 100%;
+  top: 0%;
+  left: 0%;
+  right: 0%;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.712);
+  width: 100%;
+  height: 0%;
+  transition: 0.5s ease;
+}
+.overally h2 {
+  color: white;
+}
+
+.write-access:hover .overally {
+  bottom: 0%;
+  height: 100%;
 }
 
 @media screen and (max-width: 600px) {
