@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 function auth()
 {
     if (
@@ -12,7 +14,6 @@ function auth()
     }
 }
 
-session_start();
 
 
 require_once __DIR__ . '/../src/php/Controller/Repo/AdminsRepository.php';
