@@ -1,3 +1,56 @@
+function onUsernameKeyUp() {
+  $.get(
+    "/api/admin_api.php",
+    {
+      req: "search in usernames",
+      username: $("#username").val(),
+    },
+    function (data, textStatus, jqXHR) {
+      var status = JSON.parse(data).status;
+
+      if (status == 200) {
+        $("#username-error").show();
+        $("#username-error").text("user already exists.");
+        $("#password").prop("disabled", true);
+      } else {
+        $("#username-error").hide();
+        $("#username-error").text("");
+        if ($("#username").val().length > 3) {
+          $("#password").prop("disabled", false);
+        } else {
+          $("#password").prop("disabled", true);
+        }
+      }
+    }
+  );
+}
+
+function onPasswordKeyUp() {
+  if ($("#password").val().length > 6) {
+    $("#new").prop("disabled", false);
+  } else {
+    $("#new").prop("disabled", true);
+  }
+}
+
+function onNewKeyUp() {
+  $.post(
+    "/api/admin_api.php",
+    {
+      req: "new",
+      username: $("#username").val(),
+      password: $("#password").val(),
+      permission: $("#permission").val(),
+    },
+    function (data, textStatus, jqXHR) {
+      location.reload();
+    }
+  );
+
+  $("#username").val("");
+  $("#password").val("");
+}
+
 function handleCarts(username) {
   $("#permission-" + username).on("click", function () {
     if ($("#password-" + username).val().length < 1) {

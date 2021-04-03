@@ -96,6 +96,32 @@ $allAdmins = $repo->readAllAdmins();
 
     <main>
         <div class="container-fluid p-5 d-flex flex-wrap">
+            <div class="admin-cart container border shadow m-5 text-center w-auto overflow-hidden d-flex flex-column align-items-center justify-content-center <?php if ($_SESSION['permission'] == Permission::$write) echo "write-access"; ?>" id="admin-cart-<?= $value['username'] ?>">
+
+                <img src="/public/View/img/plus-icon.png" alt="">
+                <div class="overally <?php if ($_SESSION['permission'] == Permission::$read) echo "hidden"; ?>">
+                    <div class="container p-3 h-100">
+                        <div class="d-flex flex-column justify-content-around h-75">
+                            <h2> New Admin </h2>
+
+                            <input type="text" id="username" placeholder="Enter new username" onkeyup="onUsernameKeyUp()" autocomplete="off">
+                            <p class="text-danger" id="username-error"></p>
+                            <input type="password" id="password" placeholder="Enter password" onkeyup="onPasswordKeyUp()" disabled>
+
+                            <select class="permission" id="permission">
+                                <option value="0">0</option>
+                                <option value="2">2</option>
+                                <option value="6">6</option>
+                            </select>
+
+
+                            <button class="m-1 btn btn-secondary text-center" id="new" onclick="onNewKeyUp()" disabled>Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
             <?php foreach ($allAdmins as $value) : ?>
 
                 <?php if ($value['username'] == $_SESSION['admin']) continue; ?>

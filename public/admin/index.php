@@ -70,6 +70,8 @@ $_SESSION['permission'] = $permission;
                 <button class="btn dropdown-toggle" type="button" data-toggle="dropdown"><?= $_COOKIE['admin'] ?></button>
                 <ul class="dropdown-menu">
                     <li><a href="/public/admin/edit-password.php">Edit Password</a></li>
+                    <li><a href="/public/admin/see-users.php">See users</a></li>
+
                     <?php if ($permission == Permission::$read) : ?>
                         <li><a href="/public/admin/add-and-edit-admins.php">see another admins</a></li>
                     <?php elseif ($permission == Permission::$write) : ?>

@@ -83,3 +83,33 @@ if (
         echo '{"status": 404}';
     }
 }
+
+// new admin
+if (
+    $_POST['req'] == 'new' and
+    isset($_POST['username']) and
+    isset($_POST['permission']) and
+    isset($_POST['password'])
+) {
+    $username = $_POST['username'];
+    $permission = $_POST['permission'];
+    $password = $_POST['password'];
+
+    $admin = new AdminsModel(
+        username: $username,
+        password: $password,
+        permission: $permission
+    );
+
+    if (!empty($repo->getAdminByUsername($username))) {
+        echo '{"status": 409, "message": "user already exists"}';
+        exit();
+    }
+
+    $result = $repo->addNewAdmin($admin);
+    if ($result) {
+        echo '{"status": 200}';
+    } else {
+        echo '{"status": 404}';
+    }
+}
