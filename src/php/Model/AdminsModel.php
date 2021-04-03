@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/PermissionModel.php';
+
 class AdminsModel
 {
     public function __construct(
@@ -8,10 +10,4 @@ class AdminsModel
         public $permission = null
     ) {
     }
-}
-
-class Permission
-{
-    public static $read = 2;
-    public static $write = 6;
 }
