@@ -73,7 +73,7 @@ $_SESSION['permission'] = $permission;
                     <?php if ($permission == Permission::$read) : ?>
                         <li><a href="/public/admin/add-and-edit-admins.php">see another admins</a></li>
                     <?php elseif ($permission == Permission::$write) : ?>
-                        <li><a href="/public/admin/add-and-edit-admins.php">Add & Edit another admins</a></li>
+                        <li><a href="/public/admin/add-and-edit-admins.php">Add & Edit & Delete another admins</a></li>
                     <?php endif ?>
 
                     <li><a href="/public/admin/index.php?request=logout">Logout</a></li>
