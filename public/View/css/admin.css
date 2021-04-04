@@ -49,6 +49,9 @@ main .overally {
   height: 0%;
   transition: 0.5s ease;
 }
+main .overally textarea {
+  resize: none;
+}
 main .overally h2 {
   color: white;
 }

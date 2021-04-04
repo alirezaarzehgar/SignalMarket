@@ -51,6 +51,10 @@ main {
   }
 
   .overally {
+    textarea {
+      resize: none;
+    }
+
     position: absolute;
 
     bottom: 100%;

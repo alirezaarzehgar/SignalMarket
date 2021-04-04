@@ -3,6 +3,10 @@
 require_once __DIR__ . '/../../src/php/Controller/Repo/AdminsRepository.php';
 require_once __DIR__ . '/../../src/php/Controller/Repo/ProductsRepository.php';
 
+$fileDestonation = __DIR__ . '/../../assets/';
+$postArgFilename = 'photo_dir_path';
+$uploadLimit = "2G";
+
 
 $ARepo = new AdminsRepository();
 $PRepo = new ProductsRepository();
@@ -11,7 +15,10 @@ session_start();
 
 $_SESSION['admin'] = $_COOKIE['admin'];
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if (
+    $_SERVER['REQUEST_METHOD'] == 'POST' and
+    isset($_POST['username'])
+) {
     setcookie(
         "admin",
         $_POST['username'],
@@ -28,6 +35,7 @@ if (!isset($_COOKIE['admin']))
 
 if (
     $_SERVER['REQUEST_METHOD'] == 'GET' and
+    isset($_GET['request']) and
     $_GET['request'] == "logout"
 ) {
     setcookie(
@@ -45,6 +53,38 @@ if (
 $permission = $ARepo->getAdminByUsername($_COOKIE['admin'])['permission'];
 $_SESSION['permission'] = $permission;
 
+
+// handle file uploaded
+if (
+    $_SERVER['REQUEST_METHOD'] == "POST" and
+    isset($_POST['upload'])
+) {
+    try {
+        $err = $_FILES[$postArgFilename]['error'];
+        if ($err == 0) {
+            move_uploaded_file(
+                $_FILES[$postArgFilename]['tmp_name'],
+                $fileDestonation . $_FILES[$postArgFilename]['name']
+            );
+        }
+
+        $doneMessage =  match ($err) {
+            0 => "success",
+            2 => "is too big to upload. (upload limit $uploadLimit)",
+            4 => "no selected file",
+            default => "sorry, there was a problem uploading " . $_FILES[$postArgFilename]['name'],
+        };
+    } catch (Exception $e) {
+        echo $e;
+    }
+
+    $PRepo->addNewProduct(
+        admin_name: $_SESSION['admin'],
+        subject: $_POST['subject'],
+        photo_dir_path: $_FILES[$postArgFilename]['name'],
+        introduction_to_product: $_POST['introduction_to_product']
+    );
+}
 ?>
 
 <!DOCTYPE html>
@@ -108,24 +148,21 @@ $_SESSION['permission'] = $permission;
                             <div class="container d-flex justify-content-center">
                                 <div class="admin-cart container border shadow m-5 text-center w-auto overflow-hidden d-flex flex-column align-items-center justify-content-center write-access">
                                     <img src="/public/View/img/plus-icon.png" alt="">
-                                    <div class="overally <?php if ($_SESSION['permission'] == Permission::$read) echo "hidden"; ?>">
+                                    <div class="overally">
                                         <div class="container p-3 h-100">
-                                            <div class="d-flex flex-column justify-content-around h-75">
+
+                                            <!-- form data -->
+                                            <form class="d-flex flex-column justify-content-around h-100" action="/public/admin/index.php" enctype="multipart/form-data" method="POST">
                                                 <h2> New Admin </h2>
 
-                                                <input type="text" id="username" placeholder="Enter new username" onkeyup="onUsernameKeyUp()" autocomplete="off">
-                                                <p class="text-danger" id="username-error"></p>
-                                                <input type="password" id="password" placeholder="Enter password" onkeyup="onPasswordKeyUp()" disabled>
+                                                <input type="text" name="subject" id="subject" placeholder="Enter subject" onkeyup="onSubjectKeyUp()" autocomplete="off">
+                                                <textarea class="border" name="introduction_to_product" id="introduction_to_product" cols="5" rows="5" onkeyup="onIntroductionToProductKeyUp()" disabled></textarea>
+                                                <input class="btn m-1" type="file" name="photo_dir_path" id="photo_dir_path" value="choose your image" onclick="onChangePhotoDirPath()" name="submit" disabled>
 
-                                                <select class="permission" id="permission">
-                                                    <option value="0">0</option>
-                                                    <option value="2">2</option>
-                                                    <option value="6">6</option>
-                                                </select>
+                                                <button class="m-1 btn btn-secondary text-center" name="upload" id="new" onclick="onNewKeyUp()" disabled>Add</button>
+                                            </form>
+                                            <!-- form data -->
 
-
-                                                <button class="m-1 btn btn-secondary text-center" id="new" onclick="onNewKeyUp()" disabled>Add</button>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -175,16 +212,16 @@ $_SESSION['permission'] = $permission;
                         <div class="container-fluid p-5 d-flex flex-wrap">
                             <?php foreach ($PRepo->getProductsByAdminName($_SESSION['admin']) as $value) : ?>
 
-                                <div class="admin-cart container border shadow m-5 text-center w-auto overflow-hidden d-flex flex-column align-items-center write-access" id="admin-cart-<?= $value['username'] ?>">
+                                <div class="admin-cart container border shadow m-5 text-center w-auto overflow-hidden d-flex flex-column align-items-center write-access" id="admin-cart-<?= $value['id'] ?>">
                                     <div class="overally <?php if ($_SESSION['permission'] == Permission::$read) echo "hidden"; ?>">
                                         <div class="container p-3 h-100">
                                             <div class="d-flex flex-column justify-content-around h-75">
                                                 <h2> Edit Admin </h2>
 
-                                                <button class="m-1 btn btn-secondary text-center" id="delete-<?= $value['username'] ?>">Delete</button>
+                                                <button class="m-1 btn btn-secondary text-center" id="delete-<?= $value['id'] ?>">Delete</button>
 
                                                 <script>
-                                                    handleCarts('<?= $value['username'] ?>')
+                                                    registredHandleCarts('<?= $value['id'] ?>')
                                                 </script>
                                             </div>
                                         </div>
