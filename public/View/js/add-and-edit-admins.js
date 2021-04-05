@@ -21,6 +21,17 @@ function onUsernameKeyUp() {
           $("#password").prop("disabled", true);
         }
       }
+
+      // chenck valid username
+      if ($("#username").val().split(" ").length > 1) {
+        $("#username-error").show();
+        $("#username-error").text("invalid username");
+        $("#password").prop("disabled", true);
+      } else {
+        $("#username-error").hide();
+        $("#username-error").text("");
+        $("#password").prop("disabled", false);
+      }
     }
   );
 }
