@@ -20,12 +20,32 @@ function onChangePhotoDirPath() {
 
 function onNewKeyUp() {}
 
-function registredHandleCarts(username) {
-  $("#permission-" + username).on("click", function () {
-    if ($("#password-" + username).val().length < 1) {
-      $("#password-finished-" + username).text("password won't update.");
-    } else {
-      $("#password-finished-" + username).text("");
+function deleteProduct(id) {
+  $.post(
+    "/api/product_api.php",
+    { req: "delete", id: id },
+    function (data, textStatus, jqXHR) {
+      var statsus = JSON.parse(data).status;
+
+      if (statsus == 200) {
+        $("#admin-cart-" + id).hide("slow", function () {
+          $("#admin-cart-" + id).remove();
+        });
+      }
     }
+  );
+}
+
+function handleUIAccetpPrice(id) {
+  $("#list-" + id).on("mouseover", async function () {
+    $("#overally-" + id).css("height", "100%");
+
+    $("#overally-" + id).on("mouseleave", function () {
+      $("#overally-" + id).css("height", "0%");
+    });
+  });
+
+  $("#photo-" + id).on("dblclick", function () {
+    alert("ali");
   });
 }
