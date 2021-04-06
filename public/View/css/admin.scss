@@ -44,10 +44,20 @@ header {
 }
 
 main {
+  a {
+    &:hover {
+      text-decoration: none;
+    }
+  }
   .admin-cart {
+    overflow: auto;
     position: relative;
     height: 400px;
     width: 300px !important;
+
+    img {
+      max-height: 200px;
+    }
   }
 
   .overally {
@@ -67,7 +77,8 @@ main {
     height: 0%;
     transition: 0.5s ease;
 
-    h2 {
+    h2,
+    h4 {
       color: white;
     }
   }
@@ -79,6 +90,12 @@ main {
         height: 100%;
       }
     }
+  }
+
+  .admin-cart-img {
+    position: relative;
+    float: right;
+    left: 0;
   }
 
   .card {

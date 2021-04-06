@@ -32,10 +32,17 @@ header .dropdown ul li:hover {
   background-color: #141414;
 }
 
+main a:hover {
+  text-decoration: none;
+}
 main .admin-cart {
+  overflow: auto;
   position: relative;
   height: 400px;
   width: 300px !important;
+}
+main .admin-cart img {
+  max-height: 200px;
 }
 main .overally {
   position: absolute;
@@ -52,12 +59,18 @@ main .overally {
 main .overally textarea {
   resize: none;
 }
-main .overally h2 {
+main .overally h2,
+main .overally h4 {
   color: white;
 }
 main .write-access:hover .overally {
   bottom: 0%;
   height: 100%;
+}
+main .admin-cart-img {
+  position: relative;
+  float: right;
+  left: 0;
 }
 main .card .card-header a {
   color: black;

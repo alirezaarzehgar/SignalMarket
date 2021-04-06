@@ -13,44 +13,12 @@ $PRepo = new ProductsRepository();
 
 session_start();
 
-$_SESSION['admin'] = $_COOKIE['admin'];
 
-if (
-    $_SERVER['REQUEST_METHOD'] == 'POST' and
-    isset($_POST['username'])
-) {
-    setcookie(
-        "admin",
-        $_POST['username'],
-        time() + (50 * 50 * 24 * 100)
-    );
-
-    $_SESSION['admin'] = $_POST['username'];
-    echo "cookie admin crated : " . $_COOKIE['admin'];
-    header("location: /public/admin");
-}
-
-if (!isset($_COOKIE['admin']))
+if (!isset($_SESSION['admin']))
     header("location: /public/admin/admin-login.php");
 
-if (
-    $_SERVER['REQUEST_METHOD'] == 'GET' and
-    isset($_GET['request']) and
-    $_GET['request'] == "logout"
-) {
-    setcookie(
-        "admin",
-        null,
-        time() - 3600
-    );
-
-    $_SERVER['admin'] = null;
-
-    header("location: /public/admin");
-}
-
 // calculate admin permission
-$permission = $ARepo->getAdminByUsername($_COOKIE['admin'])['permission'];
+$permission = $ARepo->getAdminByUsername($_SESSION['admin'])['permission'];
 $_SESSION['permission'] = $permission;
 
 
@@ -64,7 +32,7 @@ if (
         if ($err == 0) {
             move_uploaded_file(
                 $_FILES[$postArgFilename]['tmp_name'],
-                $fileDestonation . $_FILES[$postArgFilename]['name']
+                $fileDestonation . '/photo_dir_path/' . md5(htmlentities($_POST['subject']) . $_SESSION['admin']) . $_FILES[$postArgFilename]['name']
             );
         }
 
@@ -80,11 +48,45 @@ if (
 
     $PRepo->addNewProduct(
         admin_name: $_SESSION['admin'],
-        subject: $_POST['subject'],
-        photo_dir_path: $_FILES[$postArgFilename]['name'],
-        introduction_to_product: $_POST['introduction_to_product']
+        subject: htmlentities($_POST['subject']),
+        photo_dir_path: htmlentities($_FILES[$postArgFilename]['name']),
+        introduction_to_product: htmlentities($_POST['introduction_to_product'])
     );
 }
+
+if (
+    $_SERVER['REQUEST_METHOD'] == 'POST' and
+    isset($_POST['uploaded-final'])
+) {
+    try {
+        $err = $_FILES['final-file']['error'];
+        if ($err == 0) {
+            move_uploaded_file(
+                $_FILES['final-file']['tmp_name'],
+                $fileDestonation . '/finals/' . md5(htmlentities($_POST['subject']) . $_SESSION['admin']) . $_FILES['final-file']['name']
+            );
+        }
+
+        $doneMessage =  match ($err) {
+            0 => "success",
+            2 => "is too big to upload. (upload limit $uploadLimit)",
+            4 => "no selected file",
+            default => "sorry, there was a problem uploading " . $_FILES['final-file']['name'],
+        };
+    } catch (Exception $e) {
+        echo $e;
+    }
+
+    $prod = new ProductsModel(
+        final_product_path: $_FILES['final-file']['name']
+    );
+
+    $PRepo->updateProduct(
+        $prod,
+        $_POST['id']
+    );
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -117,7 +119,7 @@ if (
             <p class="flex-grow-1"></p>
 
             <div class="dropdown">
-                <button class="btn dropdown-toggle" type="button" data-toggle="dropdown"><?= $_COOKIE['admin'] ?></button>
+                <button class="btn dropdown-toggle" type="button" data-toggle="dropdown"><?= $_SESSION['admin'] ?></button>
                 <ul class="dropdown-menu">
                     <li><a href="/public/admin/edit-password.php">Edit Password</a></li>
                     <li><a href="/public/admin/see-users.php">See users</a></li>
@@ -128,7 +130,7 @@ if (
                         <li><a href="/public/admin/add-and-edit-admins.php">Add & Edit & Delete another admins</a></li>
                     <?php endif ?>
 
-                    <li><a href="/public/admin/index.php?request=logout">Logout</a></li>
+                    <li><a href="/public/admin/admin-login.php?request=logout">Logout</a></li>
                 </ul>
             </div>
         </div>
@@ -181,7 +183,55 @@ if (
 
                 <div id="send-final-file" class="collapse" data-parent="#according">
                     <div class="card-body">
-                        send final file
+
+                        <!-- card body -->
+                        <div class="container-fluid p-5 d-flex flex-wrap">
+                            <?php foreach ($PRepo->getProductsByAdminName($_SESSION['admin']) as $value) : ?>
+                                <?php if (
+                                    !$value['choosen_by_customer'] ||
+                                    !$value['choosen_by_admin'] ||
+                                    !$value['success_payment'] ||
+                                    $value['final_product_path']
+                                ) continue; ?>
+
+
+                                <div class="overflow-auto admin-cart container border shadow m-5 text-center w-auto overflow-hidden d-flex flex-column align-items-center" id="admin-cart-<?= $value['id'] ?>">
+
+                                    <div class="container-fluid mr-n4 mt-1">
+                                        <img id="list-<?= $value['id'] ?>" class="admin-cart-img" src="/public/View/img/list-icon.png" alt="not found">
+                                    </div>
+
+                                    <h4 class="my-2"><?= $value['subject'] ?></h4>
+                                    <img class="my-3 img-fluid" src="/assets/photo_dir_path/<?= md5($value['subject'] . $_SESSION['admin']) . $value[$postArgFilename] ?>" alt="/assets/photo_dir_path/<?= $value[$postArgFilename] ?>">
+                                    <span class="overflow-auto h-50"> <?= $value['introduction_to_product'] ?> </span>
+
+                                    <p><?= $value['price'] ?></p>
+
+                                    <div id="overally-<?= $value['id'] ?>" class="overally <?php if ($_SESSION['permission'] == Permission::$read) echo "hidden"; ?>">
+                                        <div class="container p-3 h-100">
+                                            <form class="d-flex flex-column justify-content-around h-75" action="/public/admin/index.php" enctype="multipart/form-data" method="POST">
+                                                <h2> Send Final File </h2>
+
+                                                <input type="file" name="final-file" id="final-file-<?= $value['id'] ?>" required>
+                                                <input type="hidden" name="id" value="<?= $value['id'] ?>">
+
+                                                <button class="m-1 btn btn-secondary text-center" name="uploaded-final" id="delete-<?= $value['id'] ?>">send product</button>
+
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                    <script>
+                                        handleUIOverally(<?= $value['id'] ?>);
+                                    </script>
+
+                                </div>
+
+                            <?php endforeach ?>
+                        </div>
+                        <!-- end card body -->
+
+
                     </div>
                 </div>
             </div>
@@ -194,7 +244,50 @@ if (
 
                 <div id="accept-price" class="collapse" data-parent="#according">
                     <div class="card-body">
-                        accept price and date for payment
+
+                        <!-- card body -->
+                        <div class="container-fluid p-5 d-flex flex-wrap">
+                            <?php foreach ($PRepo->getProductsByAdminName($_SESSION['admin']) as $value) : ?>
+                                <?php if (!$value['choosen_by_customer'] || $value['choosen_by_admin']) continue; ?>
+
+                                <div class="overflow-auto admin-cart container border shadow m-5 text-center w-auto overflow-hidden d-flex flex-column align-items-center" id="admin-cart-<?= $value['id'] ?>">
+
+                                    <div class="container-fluid mr-n4 mt-1">
+                                        <img id="list-<?= $value['id'] ?>" class="admin-cart-img" src="/public/View/img/list-icon.png" alt="not found">
+                                    </div>
+
+                                    <h4 class="my-2"><?= $value['subject'] ?></h4>
+                                    <img class="my-3 img-fluid" src="/assets/photo_dir_path/<?= md5($value['subject'] . $_SESSION['admin']) . $value[$postArgFilename] ?>" alt="/assets/photo_dir_path/<?= $value[$postArgFilename] ?>">
+                                    <span class="overflow-auto h-50"><?= $value['introduction_to_product'] ?></span>
+
+                                    <div id="overally-<?= $value['id'] ?>" class="overally <?php if ($_SESSION['permission'] == Permission::$read) echo "hidden"; ?>">
+                                        <div class="container p-3 h-100">
+                                            <div class="d-flex flex-column justify-content-around h-75">
+                                                <h2> Accept Price </h2>
+
+                                                <h6 class="text-center text-white border p-2">
+                                                    <a href="/assets/sent_signal_dir_path/<?= $value['sent_signal_dir_path'] ?>"><?= $value['sent_signal_dir_path'] ?></a>
+                                                </h6>
+
+                                                <input type="date" name="get-date" id="get-date-<?= $value['id'] ?>" value="<?= $value['expected_date'] ?>">
+                                                <input type="text" name="get-price" id="get-price-<?= $value['id'] ?>" value="<?= $value['price'] ?>" placeholder="Enter your price">
+
+                                                <button class="m-1 btn btn-secondary text-center" id="delete-<?= $value['id'] ?>" onclick="accetpProduct('<?= $value['id'] ?>')">Accept</button>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <script>
+                                        handleUIOverally(<?= $value['id'] ?>);
+                                    </script>
+
+                                </div>
+
+                            <?php endforeach ?>
+                        </div>
+                        <!-- end card body -->
+
                     </div>
                 </div>
             </div>
@@ -211,21 +304,33 @@ if (
                         <!-- card body -->
                         <div class="container-fluid p-5 d-flex flex-wrap">
                             <?php foreach ($PRepo->getProductsByAdminName($_SESSION['admin']) as $value) : ?>
+                                <?php if ($value['choosen_by_customer']) continue; ?>
 
-                                <div class="admin-cart container border shadow m-5 text-center w-auto overflow-hidden d-flex flex-column align-items-center write-access" id="admin-cart-<?= $value['id'] ?>">
-                                    <div class="overally <?php if ($_SESSION['permission'] == Permission::$read) echo "hidden"; ?>">
+                                <div class="admin-cart container border shadow m-5 text-center w-auto overflow-hidden d-flex flex-column align-items-center" id="admin-cart-<?= $value['id'] ?>">
+
+                                    <div class="container-fluid mr-n4 mt-1">
+                                        <img id="list-<?= $value['id'] ?>" class="admin-cart-img" src="/public/View/img/list-icon.png" alt="not found">
+                                    </div>
+
+                                    <h2 class="my-2"><?= $value['subject'] ?></h2>
+                                    <img class="my-3 img-fluid" src="/assets/photo_dir_path/<?= md5($value['subject'] . $_SESSION['admin']) . $value[$postArgFilename] ?>" alt="/assets/photo_dir_path/<?= $value[$postArgFilename] ?>">
+                                    <span class="overflow-auto"><?= $value['introduction_to_product'] ?></span>
+
+                                    <div id="overally-<?= $value['id'] ?>" class="overally <?php if ($_SESSION['permission'] == Permission::$read) echo "hidden"; ?>">
                                         <div class="container p-3 h-100">
                                             <div class="d-flex flex-column justify-content-around h-75">
-                                                <h2> Edit Admin </h2>
+                                                <h2> Delete Product </h2>
 
-                                                <button class="m-1 btn btn-secondary text-center" id="delete-<?= $value['id'] ?>">Delete</button>
+                                                <button class="m-1 btn btn-secondary text-center" id="delete-<?= $value['id'] ?>" onclick="deleteProduct('<?= $value['id'] ?>')">Delete</button>
 
-                                                <script>
-                                                    registredHandleCarts('<?= $value['id'] ?>')
-                                                </script>
                                             </div>
                                         </div>
                                     </div>
+
+                                    <script>
+                                        handleUIOverally(<?= $value['id'] ?>);
+                                    </script>
+
                                 </div>
 
                             <?php endforeach ?>

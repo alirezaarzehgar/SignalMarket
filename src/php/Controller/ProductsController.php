@@ -92,7 +92,7 @@ class ProductsController
         $admin_name = is_null($product->admin_name) ? $this->admin_name : "'{$product->admin_name}'";
         $subject = is_null($product->subject) ? $this->subject : "'{$product->subject}'";
         $photo_dir_path = is_null($product->photo_dir_path) ? $this->photo_dir_path : "'{$product->photo_dir_path}'";
-        $introduction_to_product = is_null($product->photo_dir_path) ? $this->photo_dir_path : "'{$product->photo_dir_path}'";
+        $introduction_to_product = is_null($product->introduction_to_product) ? $this->introduction_to_product : "'{$product->introduction_to_product}'";
 
         $choosen_by_customer = is_null($product->choosen_by_customer) ? $this->choosen_by_customer : "'{$product->choosen_by_customer}'";
         $customer_name = is_null($product->customer_name) ? $this->customer_name : "'{$product->customer_name}'";

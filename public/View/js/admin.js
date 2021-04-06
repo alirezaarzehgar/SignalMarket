@@ -36,16 +36,31 @@ function deleteProduct(id) {
   );
 }
 
-function handleUIAccetpPrice(id) {
+function accetpProduct(id) {
+  $.post(
+    "/api/product_api.php",
+    {
+      req: "accept",
+      id: id,
+      date: $("#get-date-" + id).val(),
+      price: $("#get-price-" + id).val(),
+    },
+    function (data, textStatus, jqXHR) {
+      var statsus = JSON.parse(data).status;
+
+      if (statsus == 200) {
+        location.reload();
+      }
+    }
+  );
+}
+
+function handleUIOverally(id) {
   $("#list-" + id).on("mouseover", async function () {
     $("#overally-" + id).css("height", "100%");
 
     $("#overally-" + id).on("mouseleave", function () {
       $("#overally-" + id).css("height", "0%");
     });
-  });
-
-  $("#photo-" + id).on("dblclick", function () {
-    alert("ali");
   });
 }
