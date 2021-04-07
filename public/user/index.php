@@ -25,16 +25,18 @@ if (isset($_SESSION['admin'])) {
 
     <header>
         <div class="navbar navbar-expand-sm bg-dark" id="topNavbar">
-            <a class="nav-item p-4" href="#">Login</a>
-            <a class="nav-item p-4" href="#">Logout</a>
-            <a class="nav-item p-4" href="#">SignUp</a>
+            <?php if (!isset($_SESSION['admin'])) : ?>
+                <a class="nav-item p-4" href="#">Login</a>
+                <a class="nav-item p-4" href="#">SignUp</a>
+            <?php else : ?>
+                <a class="nav-item p-4" href="#">Logout</a>
+            <?php endif ?>
 
         </div>
     </header>
 
     <main class="container">
-        <h1> this is the test responsive </h1>
-        <p> i wanna create Scientific Market </p>
+
     </main>
 
     <footer>
