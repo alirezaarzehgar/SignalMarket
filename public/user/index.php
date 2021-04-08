@@ -19,9 +19,10 @@ if (isset($_SESSION['admin'])) {
     <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="/node_modules/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/public/View/css/public.css">
+    <link rel="stylesheet" href="/public/View/css/user.css">
 </head>
 
-<body>
+<body class="d-flex flex-column align-items-stretch">
 
     <header>
         <div class="navbar navbar-expand-sm bg-dark" id="topNavbar">
@@ -35,12 +36,64 @@ if (isset($_SESSION['admin'])) {
         </div>
     </header>
 
-    <main class="container">
+    <main class="container-fluid flex-grow-1">
+        <div id="according">
+
+            <!-- choosing a product -->
+            <div class="card">
+                <div class="card-header text-center">
+                    <a href="#choosing_a_product" data-toggle="collapse" class="card-link">choosing a product</a>
+                </div>
+
+                <div id="choosing_a_product" class="collapse" data-parent="#according">
+                    <div class="card-body">
+
+                        <!-- card body -->
+                        <!-- end card body -->
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- payment -->
+            <div class="card">
+                <div class="card-header text-center">
+                    <a href="#payment" data-toggle="collapse" class="card-link">payment</a>
+                </div>
+
+                <div id="payment" class="collapse" data-parent="#according">
+                    <div class="card-body">
+
+                        <!-- card body -->
+                        <!-- end card body -->
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- my products -->
+            <div class="card">
+                <div class="card-header text-center">
+                    <a href="#my-product" data-toggle="collapse" class="card-link">my products</a>
+                </div>
+
+                <div id="my-product" class="collapse" data-parent="#according">
+                    <div class="card-body">
+
+                        <!-- card body -->
+                        <!-- end card body -->
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- end according -->
+        </div>
 
     </main>
 
-    <footer>
-
+    <footer class="bg-dark">
+        <?php include __DIR__ . '/../View/php/common/footer.php'; ?>
     </footer>
 
     <script src="/node_modules/jquery/dist/jquery.min.js"></script>
