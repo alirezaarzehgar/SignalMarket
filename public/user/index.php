@@ -18,7 +18,6 @@ if (isset($_SESSION['admin'])) {
     <title>Home Page</title>
     <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="/node_modules/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/public/View/css/public.css">
     <link rel="stylesheet" href="/public/View/css/user.css">
 </head>
 
