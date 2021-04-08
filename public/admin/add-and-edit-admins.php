@@ -69,7 +69,7 @@ $allAdmins = $repo->readAllAdmins();
 
     <!-- in this page i use js function between php code ... we sould include js libs on top of page. -->
     <script src="/node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="/node_modules/popper.js/dist/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.0.4/popper.js"></script>
     <script src="/node_modules/bootstrap/dist/js/bootstrap.js"></script>
     <script src="/public/View/js/add-and-edit-admins.js"></script>
 

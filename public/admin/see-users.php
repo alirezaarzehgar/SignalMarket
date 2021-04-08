@@ -67,6 +67,7 @@ $allUser = $repo->readAllUsers();
     <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="/node_modules/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/public/View/css/admin.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.0.4/popper.js"></script>
     <link rel="stylesheet" href="/public/View/css/add-and-edit-admins.css">
 
     <!-- in this page i use js function between php code ... we sould include js libs on top of page. -->

@@ -35,6 +35,8 @@ if (
     <title>Welcome Admin</title>
     <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="/node_modules/font-awesome/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.0.4/popper.js"></script>
+
     <link rel="stylesheet" href="/public/View/css/admin-login.css">
 </head>
 
