@@ -28,3 +28,29 @@ if (
         echo '{"status": 404}';
     }
 }
+
+// search to usernames
+if (
+    $_GET['req'] == 'search in usernames' and
+    isset($_GET['username'])
+) {
+    $user = $repo->getUserByUsername($_GET['username']);
+
+    if (!empty($user))
+        echo '{"status": 200}';
+    else
+        echo '{"status": 404}';
+}
+
+// search to emails
+if (
+    $_GET['req'] == 'search in emails' and
+    isset($_GET['email'])
+) {
+    $user = $repo->getUserByEmail($_GET['email']);
+
+    if (!empty($user))
+        echo '{"status": 200}';
+    else
+        echo '{"status": 404}';
+}

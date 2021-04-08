@@ -25,11 +25,11 @@ if (isset($_SESSION['admin'])) {
 
     <header>
         <div class="navbar navbar-expand-sm bg-dark" id="topNavbar">
-            <?php if (!isset($_SESSION['admin'])) : ?>
-                <a class="nav-item p-4" href="#">Login</a>
-                <a class="nav-item p-4" href="#">SignUp</a>
+            <?php if (!isset($_SESSION['user'])) : ?>
+                <a class="nav-item p-4" href="/public/user/login.php">Login</a>
+                <a class="nav-item p-4" href="/public/user/signup.php">SignUp</a>
             <?php else : ?>
-                <a class="nav-item p-4" href="#">Logout</a>
+                <a class="nav-item p-4" href="/public/user/logout.php">Logout</a>
             <?php endif ?>
 
         </div>
