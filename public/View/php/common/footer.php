@@ -1,3 +1,3 @@
-<?php
-
-echo date('H:i:s');
+<div class="container">
+    <?= "Copyright: " . date('Y') ?>
+</div>
