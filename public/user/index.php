@@ -32,6 +32,8 @@ if (isset($_SESSION['admin'])) {
                 <a class="nav-item p-4" href="/public/user/logout.php">Logout</a>
             <?php endif ?>
 
+            <p> <?= $_SESSION['user'] ?> </p>
+
         </div>
     </header>
 
@@ -48,6 +50,7 @@ if (isset($_SESSION['admin'])) {
                     <div class="card-body">
 
                         <!-- card body -->
+                        <?php include __DIR__ . '/../View/php/user/choosingProduct.php'; ?>
                         <!-- end card body -->
 
                     </div>
@@ -64,27 +67,33 @@ if (isset($_SESSION['admin'])) {
                     <div class="card-body">
 
                         <!-- card body -->
+                        <?php include __DIR__ . '/../View/php/user/payment.php'; ?>
                         <!-- end card body -->
 
                     </div>
                 </div>
             </div>
 
-            <!-- my products -->
-            <div class="card">
-                <div class="card-header text-center">
-                    <a href="#my-product" data-toggle="collapse" class="card-link">my products</a>
-                </div>
+            <?php if (isset($_SESSION['user'])) : ?>
 
-                <div id="my-product" class="collapse" data-parent="#according">
-                    <div class="card-body">
+                <!-- my products -->
+                <div class="card">
+                    <div class="card-header text-center">
+                        <a href="#my-product" data-toggle="collapse" class="card-link">my products</a>
+                    </div>
 
-                        <!-- card body -->
-                        <!-- end card body -->
+                    <div id="my-product" class="collapse" data-parent="#according">
+                        <div class="card-body">
 
+                            <!-- card body -->
+                            <?php include __DIR__ . '/../View/php/user/myProducts.php'; ?>
+                            <!-- end card body -->
+
+                        </div>
                     </div>
                 </div>
-            </div>
+
+            <?php endif ?>
 
             <!-- end according -->
         </div>
