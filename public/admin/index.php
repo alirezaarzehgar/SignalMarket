@@ -61,9 +61,11 @@ if (
     try {
         $err = $_FILES['final-file']['error'];
         if ($err == 0) {
+            $prod = $PRepo->getProductById($_POST['id']);
+
             move_uploaded_file(
                 $_FILES['final-file']['tmp_name'],
-                $fileDestonation . '/finals/' . md5(htmlentities($_POST['subject']) . $_SESSION['admin']) . $_FILES['final-file']['name']
+                $fileDestonation . '/finals/' . md5(htmlentities($prod['subject']) . $_SESSION['admin']) . $_FILES['final-file']['name']
             );
         }
 
@@ -214,6 +216,7 @@ if (
 
                                                 <input type="file" name="final-file" id="final-file-<?= $value['id'] ?>" required>
                                                 <input type="hidden" name="id" value="<?= $value['id'] ?>">
+                                                <input type="hidden" name="subject" $value="<?= $value['subject'] ?>">
 
                                                 <button class="m-1 btn btn-secondary text-center" name="uploaded-final" id="delete-<?= $value['id'] ?>">send product</button>
 
