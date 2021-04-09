@@ -52,7 +52,7 @@ if (
             <div id="overally-<?= $value['id'] ?>" class="overally <?php if (!isset($_SESSION['user'])) echo "hidden"; ?>">
                 <div class="container p-3 h-100">
                     <form class="d-flex flex-column justify-content-around h-75" action="<?= $_SERVER['PHP_SELF'] ?>" method="POST">
-                        <h3 class="text-white"> Choosing a product </h3>
+                        <h3 class="text-white"> Payment </h3>
 
                         <h6 class="text-center text-white border p-2">
                             <p><?= $value['sent_date'] ?></p>
