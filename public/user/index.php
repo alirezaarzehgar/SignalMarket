@@ -31,9 +31,6 @@ if (isset($_SESSION['admin'])) {
             <?php else : ?>
                 <a class="nav-item p-4" href="/public/user/logout.php">Logout</a>
             <?php endif ?>
-
-            <p> <?= $_SESSION['user'] ?> </p>
-
         </div>
     </header>
 
@@ -46,13 +43,13 @@ if (isset($_SESSION['admin'])) {
                     <a href="#choosing_a_product" data-toggle="collapse" class="card-link">choosing a product</a>
                 </div>
 
-                <div id="choosing_a_product" class="collapse" data-parent="#according">
+                <div id="choosing_a_product" class="collapse show" data-parent="#according">
                     <div class="card-body">
-
-                        <!-- card body -->
-                        <?php include __DIR__ . '/../View/php/user/choosingProduct.php'; ?>
-                        <!-- end card body -->
-
+                        <div class="container-fluid p-5 d-flex flex-wrap">
+                            <?php include __DIR__ . '/../View/php/user/choosingProduct.php'; ?>
+                            <!-- card body -->
+                            <!-- end card body -->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -66,9 +63,11 @@ if (isset($_SESSION['admin'])) {
                 <div id="payment" class="collapse" data-parent="#according">
                     <div class="card-body">
 
-                        <!-- card body -->
-                        <?php include __DIR__ . '/../View/php/user/payment.php'; ?>
-                        <!-- end card body -->
+                        <div class="container-fluid p-5 d-flex flex-wrap">
+                            <!-- card body -->
+                            <?php include __DIR__ . '/../View/php/user/payment.php'; ?>
+                            <!-- end card body -->
+                        </div>
 
                     </div>
                 </div>
@@ -85,9 +84,11 @@ if (isset($_SESSION['admin'])) {
                     <div id="my-product" class="collapse" data-parent="#according">
                         <div class="card-body">
 
-                            <!-- card body -->
-                            <?php include __DIR__ . '/../View/php/user/myProducts.php'; ?>
-                            <!-- end card body -->
+                            <div class="container-fluid p-5 d-flex flex-wrap">
+                                <!-- card body -->
+                                <?php include __DIR__ . '/../View/php/user/myProducts.php'; ?>
+                                <!-- end card body -->
+                            </div>
 
                         </div>
                     </div>
