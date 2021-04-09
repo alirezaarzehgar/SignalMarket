@@ -266,7 +266,7 @@ if (
                                                 <h2> Accept Price </h2>
 
                                                 <h6 class="text-center text-white border p-2">
-                                                    <a href="/assets/sent_signal_dir_path/<?= $value['sent_signal_dir_path'] ?>"><?= $value['sent_signal_dir_path'] ?></a>
+                                                    <a href="/assets/sent_signal_dir_path/<?= md5($value['customer_name']) . $value['sent_signal_dir_path'] ?>"><?= $value['sent_signal_dir_path'] ?></a>
                                                 </h6>
 
                                                 <input type="date" name="get-date" id="get-date-<?= $value['id'] ?>" value="<?= $value['expected_date'] ?>">
